@@ -1,0 +1,36 @@
+.signup {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  width: 100%;
+  min-height: calc(100% - 80px);
+  text-align: center;
+  justify-content: center;
+}
+
+.signup_container,
+.signup_form {
+  width: 300px;
+}
+form svg {
+  color: white;
+  width: 30px;
+  height: auto;
+}
+form input {
+  width: 300px;
+  height: 24px;
+  margin-bottom: 20px;
+  color: rgb(20, 20, 20);
+  font-family: "Verdana", sans-serif;
+  font-size: 20px;
+  padding-left: 15px;
+  background-color: white;
+  border: none;
+}
+input:focus {
+  border: rgb(30, 30, 231) solid 3px !important;
+}

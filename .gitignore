@@ -1,0 +1,10 @@
+/.env
+/node_modules
+
+./node_modules
+../node_modules
+node_modules
+.env.local
+.env.prod
+/.env.local
+/.env.prod
