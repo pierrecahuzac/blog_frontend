@@ -9,3 +9,8 @@
   font-family: "Calibri", sans-serif;
   font-size: 35px;
 }
+
+.message {
+  font-size: 20px;
+  color: green;
+}

@@ -3,10 +3,13 @@
   display: flex;
   flex-direction: column;
   margin: 50px auto;
+  color: beige;
+  min-height: 100vh;
 }
 .article-title {
   font-family: "Calibri light", sans-serif;
   font-size: 22px;
+  color: beige;
 }
 .article-content {
   font-family: "Georgia", sans-serif;
@@ -17,7 +20,9 @@
   word-break: break-word;
   display: -webkit-box;
   overflow-y: hidden;
-  margin-bottom: 50px;
+  margin-bottom: 10px;
+  color: beige;
+  padding: 0 5px;
 }
 .article-createdTime {
   position: absolute;
@@ -41,14 +46,6 @@
   height: 200px;
   object-fit: cover;
   border-radius: 5px;
-}
-.article-picture:hover {
-  width: 100%;
-  height: 200px;
-
-  border-radius: 5px;
-  transform: scale(0.99);
-  transition: 0.3s;
 }
 
 .img-container {

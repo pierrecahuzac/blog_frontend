@@ -1,9 +1,10 @@
 import { useState, useEffect } from "react";
-
+import { Link } from "react-router-dom";
 import axios from "axios";
-import "../assets/CSS/signin.css";
+import Button from "../Button";
+import "../../assets/CSS/signin.css";
 
-export default function Signin() {
+export default function Signin({ userExist, setUserExist }) {
   const [email, setEmail] = useState("");
   const [erreur, setErreur] = useState("");
   const [password, setPassword] = useState("");
@@ -25,12 +26,19 @@ export default function Signin() {
         password,
       })
       .then((res) => {
-        console.log(res.data);
-        setErreur(response.data);
+        console.log(res);
+        console.log(res.data.logged);
+        setUserExist({
+          email: res.data.record.fields.email,
+          display_name: res.data.record.fields.display_name,
+          logged: res.data.logged,
+          userId: res.data.record.id,
+        });
       })
       .catch((err) => {
-        console.log(err.response.data.erreur);
-        setErreur(err.response.data.erreur);
+        console.log(err);
+        /*  console.log(err.response.data); */
+        /* setErreur(err.erreur); */
       });
   };
 
@@ -59,7 +67,11 @@ export default function Signin() {
       <button type="submit" onClick={login}>
         Accéder à mon compte
       </button>
+      <Link to="/signup" className="link_account">
+        Vous n'avez pas de compte ?
+      </Link>
       <div className="erreur">{erreur}</div>
+      <div>{userExist.email}</div>
     </div>
   );
 }

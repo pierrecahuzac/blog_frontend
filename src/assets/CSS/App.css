@@ -2,5 +2,9 @@
   width: 100%;
   min-height: 100vh;
   box-sizing: border-box;
-  background-color: #15171a;
+  background-color: #242628;
+}
+a:visited {
+  text-decoration: none;
+  color: beige;
 }

@@ -21,3 +21,16 @@
   margin-top: 20px;
   color: red;
 }
+.link_account:hover {
+  color: rgb(179, 179, 163);
+  transition: 0.3s;
+}
+button {
+  width: 200px;
+  height: 50px;
+  font-size: 16px;
+  border-radius: 5px;
+  border: none;
+  background-color: black;
+  color: beige;
+}

@@ -3,8 +3,9 @@ import { NavLink, Link } from "react-router-dom";
 import { useState } from "react";
 import "../assets/CSS/header.css";
 
-export default function Header() {
+export default function Header({ userExist, setUserExist }) {
   const [isLogged, setIsLogged] = useState(false);
+
   const [menuIsOpen, setMenuIsOpen] = useState(false);
   const closeMenu = () => {
     setMenuIsOpen(false);
@@ -34,9 +35,17 @@ export default function Header() {
             <Link to="/signup" className="link link_signup">
               <>Signup</>
             </Link>
-            <Link to="/signin" className="link link_signup">
-              <>Signin</>
-            </Link>
+
+            {userExist.logged ? (
+              <Link to={`/user/${userExist.userId}/backoffice`}>
+                {userExist.display_name}
+              </Link>
+            ) : (
+              <Link to="/signin" className="link link_signup">
+                <>Signin</>
+              </Link>
+            )}
+
             <Link to="/blog" className="link link_blog">
               <> Blog</>
             </Link>
