@@ -1,11 +1,11 @@
 import { RxHamburgerMenu, RxCross1 } from "react-icons/rx";
+import { FaBloggerB } from "react-icons/fa";
 import { NavLink, Link } from "react-router-dom";
-import { useState } from "react";
-import "../assets/CSS/header.css";
+import { useState, useEffect } from "react";
 
-export default function Header({ userExist, setUserExist }) {
-  const [isLogged, setIsLogged] = useState(false);
+import "../assets/CSS/header.scss";
 
+export default function Header({ userExist }) {
   const [menuIsOpen, setMenuIsOpen] = useState(false);
   const closeMenu = () => {
     setMenuIsOpen(false);
@@ -21,96 +21,62 @@ export default function Header({ userExist, setUserExist }) {
 
   return (
     <header className="header">
-      <nav className="header_nav desktop">
-        <div className="nav_logo">
-          <NavLink
-            to="/"
-            style={({ isActive }) => (isActive ? activeStyle : undefined)}
-          >
-            Home
-          </NavLink>
-        </div>{" "}
-        {!isLogged ? (
-          <div className="nav_links">
-            <Link to="/signup" className="link link_signup">
-              <>Signup</>
-            </Link>
-
-            {userExist.logged ? (
-              <Link to={`/user/${userExist.userId}/backoffice`}>
-                {userExist.display_name}
-              </Link>
-            ) : (
-              <Link to="/signin" className="link link_signup">
-                <>Signin</>
-              </Link>
-            )}
-
-            <Link to="/blog" className="link link_blog">
-              <> Blog</>
-            </Link>
-          </div>
-        ) : (
-          <div className="nav_links">
-            <Link to="/backoffice" className="link link_backoffice">
-              <>Mon Espace</>
-            </Link>
-            <Link to="/mon-blog" className="link link_backoffice">
-              <>Mon blog</>
-            </Link>
-          </div>
-        )}
-        <div className="nav_burger-menu">
-          <RxHamburgerMenu onClick={openMenu} />
+      <nav className="header_container">
+        <div className="header_logo_container">
+          <Link to="/">
+            <img src="" alt="logo" className="header_logo" />
+          </Link>
         </div>
-      </nav>
-
-      {/* mobile  */}
-      <nav className={"header_nav mobile" + (menuIsOpen ? " open" : " close")}>
-        <div className="nav_logo">
-          <NavLink
-            to="/"
-            style={({ isActive }) => (isActive ? activeStyle : undefined)}
-            onClick={closeMenu}
-          >
-            Home
-          </NavLink>
-        </div>{" "}
-        {!isLogged ? (
-          <div className="nav_links">
-            <Link to="/signup" className="link link_signup" onClick={closeMenu}>
-              <>Signup</>
-            </Link>
-            <Link to="/signin" className="link link_signup" onClick={closeMenu}>
-              <>Signin</>
-            </Link>
-            <Link to="/blog" className="link link_blog" onClick={closeMenu}>
-              <> Blog</>
-            </Link>
-          </div>
-        ) : (
-          <div className="nav_links">
-            <Link
-              to="/backoffice"
-              className="link link_backoffice"
-              onClick={closeMenu}
-            >
-              <>Mon Espace</>
-            </Link>
-            <Link
-              to="/mon-blog"
-              className="link link_backoffice"
-              onClick={closeMenu}
-            >
-              <>Mon blog</>
-            </Link>
-          </div>
-        )}
-        <div className="nav_burger-menu">
-          <RxCross1
-            onClick={closeMenu}
-            className={"nav_burger-icon" + (menuIsOpen ? " open" : "close")}
-          />
+        <div className="header_menu_desktop">
+          <ul className="header_links">
+            <li className="header_link">
+              <NavLink to="/">HOME</NavLink>
+            </li>
+            <li className="header_link">
+              <NavLink to="/signup">SIGNUP</NavLink>
+            </li>
+            <li className="header_link">
+              <NavLink to="/signin">SIGNIN</NavLink>
+            </li>
+            <li className="header_link">
+              <NavLink to="/blog">BLOG</NavLink>
+            </li>
+          </ul>
+        </div>
+        <div
+          className={
+            menuIsOpen ? "header_menu_mobile open" : "header_menu_mobile close"
+          }
+        >
+          <ul className="header_links_mobile">
+            <li className="header_link_mobile home">
+              <NavLink to="/" onClick={closeMenu}>
+                HOME
+              </NavLink>
+            </li>
+            <li className="header_link_mobile">
+              <NavLink to="/signup" onClick={closeMenu}>
+                SIGNUP
+              </NavLink>
+            </li>
+            <li className="header_link_mobile">
+              <NavLink to="/signin" onClick={closeMenu}>
+                SIGNIN
+              </NavLink>
+            </li>
+            <li className="header_link_mobile">
+              <NavLink to="/blog" onClick={closeMenu}>
+                BLOG
+              </NavLink>
+            </li>
+          </ul>
+        </div>
+        <div className="header_burgermenu_button">
+          {menuIsOpen ? (
+            <RxCross1 onClick={closeMenu} />
+          ) : (
+            <RxHamburgerMenu onClick={openMenu} />
+          )}
         </div>
       </nav>
     </header>
