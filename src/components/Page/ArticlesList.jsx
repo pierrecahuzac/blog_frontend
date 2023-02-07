@@ -47,8 +47,6 @@ export default function ArticlesList() {
             {article.fields ? (
               <Link to={`/blog/${article.id}`}>
                 <div>
-                  {/*  <p className="card__informations__footer">Plus d'infos...</p>{" "} */}
-
                   {article.fields.picture && (
                     <div className="img-container">
                       {article.fields.picture.map((img) => (

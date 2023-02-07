@@ -37,6 +37,7 @@ export default function SignUp() {
     e.preventDefault();
     setPasswordValidation(e.target.value);
   };
+  const prodUrl = import.meta.env.VITE_BACK_PROD_URL;
   const createUser = async () => {
     await axios
       .post(`${prodUrl}/user/create_user`, {
