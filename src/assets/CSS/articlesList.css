@@ -4,7 +4,7 @@
   flex-direction: column;
   margin: 50px auto;
   color: beige;
-  min-height: 100vh;
+  min-height: 100%;
 }
 .article-title {
   font-family: "Calibri light", sans-serif;
@@ -40,6 +40,7 @@
   box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
   margin-bottom: 2em;
   border-radius: 5px;
+  height: 375px;
 }
 .article-picture {
   width: 100%;

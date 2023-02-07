@@ -32,12 +32,36 @@ export default function Header({ userExist }) {
             <li className="header_link">
               <NavLink to="/">HOME</NavLink>
             </li>
-            <li className="header_link">
-              <NavLink to="/signup">SIGNUP</NavLink>
-            </li>
-            <li className="header_link">
-              <NavLink to="/signin">SIGNIN</NavLink>
-            </li>
+            {userExist.logged ? (
+              <div>
+                <li className="header_link">
+                  <NavLink
+                    to={`/user/${userExist.userId}/backoffice`}
+                    onClick={closeMenu}
+                  >
+                    {userExist.email}
+                  </NavLink>
+                </li>
+                <li className="header_link">
+                  <NavLink to="/signup" onClick={closeMenu}>
+                    MON BLOG
+                  </NavLink>
+                </li>
+              </div>
+            ) : (
+              <div>
+                <li className="header_link">
+                  <NavLink to="/signup" onClick={closeMenu}>
+                    SIGNUP
+                  </NavLink>
+                </li>
+                <li className="header_link">
+                  <NavLink to="/signin" onClick={closeMenu}>
+                    SIGNIN
+                  </NavLink>
+                </li>
+              </div>
+            )}
             <li className="header_link">
               <NavLink to="/blog">BLOG</NavLink>
             </li>
@@ -54,16 +78,30 @@ export default function Header({ userExist }) {
                 HOME
               </NavLink>
             </li>
-            <li className="header_link_mobile">
-              <NavLink to="/signup" onClick={closeMenu}>
-                SIGNUP
-              </NavLink>
-            </li>
-            <li className="header_link_mobile">
-              <NavLink to="/signin" onClick={closeMenu}>
-                SIGNIN
-              </NavLink>
-            </li>
+            {userExist.logged ? (
+              <li className="header_link_mobile">
+                <NavLink
+                  to={`/user/${userExist.userId}/backoffice`}
+                  onClick={closeMenu}
+                >
+                  {userExist.email}
+                </NavLink>
+              </li>
+            ) : (
+              <div>
+                <li className="header_link_mobile">
+                  <NavLink to="/signup" onClick={closeMenu}>
+                    SIGNUP
+                  </NavLink>
+                </li>
+                <li className="header_link_mobile">
+                  <NavLink to="/signin" onClick={closeMenu}>
+                    SIGNIN
+                  </NavLink>
+                </li>
+              </div>
+            )}
+
             <li className="header_link_mobile">
               <NavLink to="/blog" onClick={closeMenu}>
                 BLOG

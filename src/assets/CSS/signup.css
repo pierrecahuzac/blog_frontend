@@ -43,6 +43,8 @@ input:focus {
 }
 .signup_message {
   margin-top: 50px;
+  color: green;
+  font-size: 30px;
 }
 .signup_erreur {
   color: red;

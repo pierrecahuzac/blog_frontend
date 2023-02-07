@@ -4,7 +4,7 @@ import { FaSpinner } from "react-icons/fa";
 import { AiOutlineRollback } from "react-icons/ai";
 import axios from "axios";
 import Loading from "../Loading";
-import "../../assets/CSS/articlePage.css";
+import "../../assets/CSS/articlePage.scss";
 
 export default function ArticlePage() {
   const prodUrl = import.meta.env.VITE_BACK_PROD_URL;

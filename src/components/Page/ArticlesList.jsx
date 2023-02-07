@@ -46,22 +46,20 @@ export default function ArticlesList() {
           >
             {article.fields ? (
               <Link to={`/blog/${article.id}`}>
-                <div>
-                  {article.fields.picture && (
-                    <div className="img-container">
-                      {article.fields.picture.map((img) => (
-                        <img
-                          src={img.url}
-                          alt={img.filename}
-                          className="article-picture"
-                          key={img.filename}
-                        />
-                      ))}
-                    </div>
-                  )}
-                  <h2 className="article-title">{article.fields.title}</h2>
-                  <p className="article-content">{article.fields.content}</p>
-                </div>
+                {article.fields.picture && (
+                  <div className="img-container">
+                    {article.fields.picture.map((img) => (
+                      <img
+                        src={img.url}
+                        alt={img.filename}
+                        className="article-picture"
+                        key={img.filename}
+                      />
+                    ))}
+                  </div>
+                )}
+                <h2 className="article-title">{article.fields.title}</h2>
+                <p className="article-content">{article.fields.content}</p>
               </Link>
             ) : (
               ""

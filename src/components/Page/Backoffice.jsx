@@ -10,7 +10,6 @@ export default function Backoffice({ userExist, setUserExist }) {
   const deleteMyAccount = async (e) => {
     const userId = userExist.userId;
     const userEmail = userExist.email;
-
     e.preventDefault();
     await axios
       .delete(`${prodUrl}/user/${userId}/deleteAccount`, {
@@ -19,7 +18,8 @@ export default function Backoffice({ userExist, setUserExist }) {
       })
       .then((res) => {
         setMessage(res.data.message);
-        return redirect("/");
+        setUserExist(!userExist.logged);
+        redirect("/");
       })
       .catch((err) => {});
   };
