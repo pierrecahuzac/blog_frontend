@@ -23,7 +23,7 @@ export default function ArticlesList() {
       /* .get(`http://localhost:5000/blog`) */
       .get(`${prodUrl}/blog`)
       .then((res) => {
-        setArticlesList(res.data.records);
+        setArticlesList(res.data);
         setLoading(false);
       })
       .catch((err) => {});
