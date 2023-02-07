@@ -69,6 +69,16 @@
   left: 0;
   transition: 0.6s ease-out;
 }
+a:visited {
+  color: beige;
+}
+.burger_close {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  color: beige;
+}
+
 @media screen and (min-width: 1000px) {
   .header_burgermenu_button {
     display: none;

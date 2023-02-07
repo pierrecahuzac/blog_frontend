@@ -19,15 +19,12 @@ export default function Signin({ userExist, setUserExist }) {
   };
 
   const login = async () => {
-    console.log("ici");
     await axios
-      .post(`http://localhost:5000/user/login`, {
+      .post(`${prodUrl}/user/login`, {
         email,
         password,
       })
       .then((res) => {
-        console.log(res);
-        console.log(res.data.logged);
         setUserExist({
           email: res.data.record.fields.email,
           display_name: res.data.record.fields.display_name,
@@ -35,11 +32,7 @@ export default function Signin({ userExist, setUserExist }) {
           userId: res.data.record.id,
         });
       })
-      .catch((err) => {
-        console.log(err);
-        /*  console.log(err.response.data); */
-        /* setErreur(err.erreur); */
-      });
+      .catch((err) => {});
   };
 
   return (

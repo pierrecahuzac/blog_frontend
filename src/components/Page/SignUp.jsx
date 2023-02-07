@@ -39,19 +39,16 @@ export default function SignUp() {
   };
   const createUser = async () => {
     await axios
-      .post(`http://localhost:5000/user/create_user`, {
+      .post(`${prodUrl}/user/create_user`, {
         email,
         password,
         password_validation,
         display_name,
       })
       .then((res) => {
-        console.log(res.data);
         setUserCreated(res.data);
-        console.log(userCreated);
       })
       .catch((err) => {
-        console.log(err.response.data.erreur);
         setErreur(err.response.data.erreur);
       });
   };

@@ -7,26 +7,23 @@ import Loading from "../Loading";
 import "../../assets/CSS/articlePage.css";
 
 export default function ArticlePage() {
+  const prodUrl = import.meta.env.VITE_BACK_PROD_URL;
+  const localUrl = import.meta.env.VITE_BACK_LOCAL_URL;
   let { articleId } = useParams();
-  console.log({ articleId });
   const [article, setArticle] = useState([]);
 
   useEffect(() => {
-    console.log("ici");
     getOneArticle(articleId);
   }, []);
 
   const getOneArticle = async () => {
     await axios
-      .get(`http://localhost:5000/blog/${articleId}`)
+
+      .get(`${prodUrl}/blog/${articleId}`)
       .then((res) => {
-        console.log(res.data.article.fields);
         setArticle(res.data.article.fields);
-        /*      setLoading(false); */
       })
-      .catch((err) => {
-        console.log(err);
-      });
+      .catch((err) => {});
   };
 
   return (

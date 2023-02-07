@@ -69,13 +69,19 @@ export default function Header({ userExist }) {
                 BLOG
               </NavLink>
             </li>
+            <li className="header_link_mobile burger_close">
+              <RxCross1 onClick={closeMenu} />
+            </li>
           </ul>
         </div>
         <div className="header_burgermenu_button">
           {menuIsOpen ? (
             <RxCross1 onClick={closeMenu} />
           ) : (
-            <RxHamburgerMenu onClick={openMenu} />
+            <RxHamburgerMenu
+              onClick={openMenu}
+              className="header_burgermenu_button_close"
+            />
           )}
         </div>
       </nav>
