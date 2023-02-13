@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { emailValidator } from "email-validator";
 import { AiFillEyeInvisible } from "react-icons/ai";
 import { Link } from "react-router-dom";
 import { AiFillEye } from "react-icons/ai";
@@ -18,7 +19,6 @@ export default function SignUp() {
   };
   const changeEmail = (e) => {
     setErreur("");
-
     e.preventDefault();
     setEmail(e.target.value);
   };
@@ -39,6 +39,18 @@ export default function SignUp() {
   };
   const prodUrl = import.meta.env.VITE_BACK_PROD_URL;
   const createUser = async () => {
+    /*  if (!emailValidator.validate(email)) {
+      console.log(`l'email est invalide`);
+      return;
+    } */
+    if (!password) {
+      console.log(`entrer un mot de passe`);
+      return;
+    }
+    if (!password_validation) {
+      console.log(`les mots de passe doivent être identiques`);
+      return;
+    }
     await axios
       .post(`${prodUrl}/user/create_user`, {
         email,

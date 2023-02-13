@@ -17,7 +17,8 @@
   }
   &_logo {
     max-width: 100%;
-    height: auto !important;
+    /* height: auto !important; */
+    height: 40px;
   }
   &_menu_desktop {
     display: none;
@@ -55,6 +56,9 @@
     top: 12px;
     right: 20px;
     line-height: 40px;
+  }
+  &_input {
+    color: black;
   }
 }
 .open {

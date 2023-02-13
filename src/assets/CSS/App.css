@@ -3,6 +3,7 @@
   min-height: 100vh;
   box-sizing: border-box;
   background-color: #242628;
+  font-family: "Sofia Pro", sans-serif;
 }
 a:visited {
   text-decoration: none;

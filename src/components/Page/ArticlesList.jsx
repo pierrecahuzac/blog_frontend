@@ -20,13 +20,15 @@ export default function ArticlesList() {
     const prodUrl = import.meta.env.VITE_BACK_PROD_URL;
     const localUrl = import.meta.env.VITE_BACK_LOCAL_URL;
     await axios
-      /* .get(`http://localhost:5000/blog`) */
+
       .get(`${prodUrl}/blog`)
       .then((res) => {
         setArticlesList(res.data);
         setLoading(false);
       })
-      .catch((err) => {});
+      .catch((err) => {
+        console.error(err);
+      });
   };
 
   const getArticleId = (e) => {

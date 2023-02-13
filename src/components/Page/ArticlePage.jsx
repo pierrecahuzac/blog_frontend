@@ -18,24 +18,25 @@ export default function ArticlePage() {
 
   const getOneArticle = async () => {
     await axios
-
       .get(`${prodUrl}/blog/${articleId}`)
       .then((res) => {
         setArticle(res.data.article.fields);
       })
-      .catch((err) => {});
+      .catch((err) => {
+        console.log(err);
+      });
   };
 
   return (
     <div className="article_container">
       <span>
-        <Link to="/blog" className="back_to_articles_list">
+        <Link to="/" className="back_to_articles_list">
           <AiOutlineRollback /> Retour à la liste des articles
         </Link>
       </span>
       <div className="article_element">
-        <div className="article_date">{article.Date}</div>
         <h2 className="article_title">{article.title}</h2>
+        <div className="article_date">{article.Date}</div>
         <div className="article_id">{article.id}</div>
         <div className="article_img">
           {article.picture ? (
