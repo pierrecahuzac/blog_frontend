@@ -53,7 +53,7 @@ input:focus {
   color: rgb(179, 179, 163);
   transition: 0.3s;
 }
-button {
+.btn_submit_new_account {
   width: 200px;
   height: 50px;
   font-size: 16px;

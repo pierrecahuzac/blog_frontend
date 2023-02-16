@@ -1,9 +1,11 @@
 import { useState, useEffect } from "react";
-import { emailValidator } from "email-validator";
+import emailValidator from "email-validator";
+import passwordValidator from "password-validator";
 import { AiFillEyeInvisible } from "react-icons/ai";
 import { Link } from "react-router-dom";
 import { AiFillEye } from "react-icons/ai";
 import axios from "axios";
+
 import "../../assets/CSS/signup.css";
 
 export default function SignUp() {
@@ -14,6 +16,7 @@ export default function SignUp() {
   const [password_validation, setPasswordValidation] = useState("");
   const [userCreated, setUserCreated] = useState({});
   const [erreur, setErreur] = useState();
+
   const handlePasswordVisibility = () => {
     setPasswordReveal(!passwordReveal);
   };
@@ -39,16 +42,54 @@ export default function SignUp() {
   };
   const prodUrl = import.meta.env.VITE_BACK_PROD_URL;
   const createUser = async () => {
-    /*  if (!emailValidator.validate(email)) {
-      console.log(`l'email est invalide`);
+    const errorsArray = [];
+    var schema = new passwordValidator();
+
+    schema
+      .is()
+      .min(8) // Minimum length 8
+      .is()
+      .max(100) // Maximum length 100
+      .has()
+      .uppercase() // Must have uppercase letters
+      .has()
+      .lowercase() // Must have lowercase letters
+      .has()
+      .digits(2) // Must have at least 2 digits
+      .has()
+      .not()
+      .spaces() // Should not have spaces
+      .is()
+      .not()
+      .oneOf(["Passw0rd", "Password123", "1234"]); // Blacklist these values
+    if (!schema.validate(password)) {
+      setErreur(`Mot de passe incorrect`);
+      errorsArray.push(`Mot de passe incorrect`);
       return;
-    } */
+    }
+    if (!emailValidator.validate(email) || !email) {
+      setErreur(`L'email entré n'est pas valide / est vide`);
+      errorsArray.push(`L'email entré n'est pas valide / est vide`);
+      return;
+    }
     if (!password) {
-      console.log(`entrer un mot de passe`);
+      setErreur(`entrer un mot de passe`);
+      errorsArray.push(`entrer un mot de passe`);
       return;
     }
     if (!password_validation) {
-      console.log(`les mots de passe doivent être identiques`);
+      setErreur(`la validation du mot de passe est vide`);
+      errorsArray.push(`la validation du mot de passe est vide`);
+      return;
+    }
+    if (password_validation !== password) {
+      setErreur(`les mots de passe doivent être identiques`);
+      errorsArray.push(`les mots de passe doivent être identiques`);
+      return;
+    }
+    if (errorsArray.length) {
+      console.log(errorsArray);
+      setErreur(errorsArray);
       return;
     }
     await axios
@@ -117,7 +158,11 @@ export default function SignUp() {
         </form>
       </div>
 
-      <button type="submit" onClick={createUser}>
+      <button
+        type="submit"
+        onClick={createUser}
+        className="btn_submit_new_account"
+      >
         Créer mon compte
       </button>
       <Link to="/signin" className="link_account">

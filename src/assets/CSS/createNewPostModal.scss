@@ -1,0 +1,21 @@
+.create_new_post__container {
+    display: none;
+}
+.create_new_post__form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.create_new_post__container-modal_is_open {
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1000;
+    background-color: grey;
+}

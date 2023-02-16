@@ -44,13 +44,22 @@ export default function Header({ userExist }) {
                 value={inputValue}
                 className="header_input"
                 onChange={handleInput}
+                placeholder="Nom d'utilisateur recherché"
               />
+
               <Link to={`/blog/user/${inputValue}`}>
-                <button action="submit">ok</button>
+                {inputValue && (
+                  <button
+                    action="submit"
+                    /* onClick={searchForUserPosts} */
+                  >
+                    RECHERCHER
+                  </button>
+                )}
               </Link>
             </li>
             <li className="header_link">
-              <NavLink to="/">HOME</NavLink>
+              <NavLink to="/">ACCUEIL</NavLink>
             </li>
             {userExist.logged ? (
               <div>
@@ -64,7 +73,7 @@ export default function Header({ userExist }) {
                 </li>
               </div>
             ) : (
-              <div>
+              <div className="header_links_connection">
                 <li className="header_link">
                   <NavLink to="/signup" onClick={closeMenu}>
                     SIGNUP
@@ -87,7 +96,7 @@ export default function Header({ userExist }) {
           <ul className="header_links_mobile">
             <li className="header_link_mobile home">
               <NavLink to="/" onClick={closeMenu}>
-                HOME
+                ACCUEIL
               </NavLink>
             </li>
             {userExist.logged ? (
@@ -100,7 +109,7 @@ export default function Header({ userExist }) {
                 </NavLink>
               </li>
             ) : (
-              <div>
+              <div className="header_links_connection">
                 <li className="header_link_mobile">
                   <NavLink to="/signup" onClick={closeMenu}>
                     SIGNUP

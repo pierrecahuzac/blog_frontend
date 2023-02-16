@@ -36,6 +36,12 @@
     background-color: #242628;
     z-index: 2000;
   }
+  &_links_connection {
+    display: flex;
+    flex-direction: column;
+    width: 160px;
+    justify-content: space-between;
+  }
   &_links_mobile {
     width: 300px;
     display: flex;
@@ -69,7 +75,7 @@
 }
 .close {
   position: absolute;
-  top: -1000px !important;
+  top: -2000px !important;
   left: 0;
   transition: 0.6s ease-out;
 }
@@ -119,6 +125,12 @@ a:visited {
       width: 50px;
       height: 30px;
       font-size: 20px;
+    }
+    &_links_connection {
+      display: flex;
+      flex-direction: row !important;
+      width: 160px;
+      justify-content: space-between;
     }
   }
 }

@@ -11,14 +11,20 @@ export default function Signin({ userExist, setUserExist }) {
 
   const changeEmail = (e) => {
     e.preventDefault();
+    setErreur("");
     setEmail(e.target.value);
   };
   const changePassword = (e) => {
     e.preventDefault();
+    setErreur("");
     setPassword(e.target.value);
   };
   const prodUrl = import.meta.env.VITE_BACK_PROD_URL;
   const login = async () => {
+    if (!password || !email) {
+      setErreur(`Pas d'email ou de mot de passe`);
+      return;
+    }
     await axios
       .post(`${prodUrl}/user/login`, {
         email,
@@ -57,7 +63,7 @@ export default function Signin({ userExist, setUserExist }) {
           </div>
         </form>
       </div>
-      <button type="submit" onClick={login}>
+      <button type="submit" onClick={login} className="btn_submit_account">
         Accéder à mon compte
       </button>
       <Link to="/signup" className="link_account">

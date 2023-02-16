@@ -34,9 +34,9 @@ export default function UserArticlesPage({ userExist }) {
 
   return (
     <div className="articles-list">
-      <Link to={`/blog/${displayName}`}>
+      {/*   <Link to={`/blog/${displayName}`}>
         <button>back to user posts page</button>
-      </Link>
+      </Link> */}
 
       {loading && <Loading />}
       {!loading &&

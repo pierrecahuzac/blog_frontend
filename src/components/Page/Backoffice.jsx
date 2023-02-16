@@ -1,30 +1,25 @@
 import axios from "axios";
 import { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
-import { redirect } from "react-router-dom";
+import { ToastContainer, toast } from "react-toastify";
+import { redirect, useParams } from "react-router-dom";
+import CreateNewPost from "../CreateNewPost";
 import "../../assets/CSS/Backoffice.css";
+import "react-toastify/dist/ReactToastify.css";
 
 export default function Backoffice({ userExist, setUserExist }) {
   const [myPosts, setMyPosts] = useState([]);
-  const [createNewPost, setCreateNewpost] = useState({
-    title: "nouveau post",
-    content: `Lorem, ipsum dolor sit amet consectetur adipisicing elit. Assumenda provident, facilis ab tempore eos, dicta dolores voluptates veniam cum minima architecto. Velit perferendis libero, nostrum ullam neque eum quae eius.
-Facilis, itecto deleniti cum commodi atque laborum unde.Odio alias sapiente laboriosam ab totam iste sunt voluptas illum voluptate, aut pariatur quo aliquam quia nisi maiores eos! Excepturi suscipit perferendis iure, tempora repudiandae cumque ullam doloremque ad architecto`,
-    createdBy: userExist.display_name,
-    picture:
-      "https://cdn.dribbble.com/users/246068/screenshots/10493400/media/1b1c6d5b0c0d85e7c6db45b75445641e.gif",
-    date: "",
-  });
+  const [createNewPostModalIsOpen, setCreateNewPostModalIsOpen] =
+    useState(false);
+
   const [message, setMessage] = useState("");
 
   const prodUrl = import.meta.env.VITE_BACK_PROD_URL;
   const localUrl = import.meta.env.VITE_BACK_LOCAL_URL;
 
   useEffect(() => {
-    /*  setLoading(true); */
     getMyPosts();
   }, []);
-
+  const notify = () => toast(`Votre compte a été supprimé`);
   const getMyPosts = async () => {
     await axios
       .get(`${prodUrl}/blog/user/${userExist.display_name}`)
@@ -37,15 +32,7 @@ Facilis, itecto deleniti cum commodi atque laborum unde.Odio alias sapiente labo
   };
 
   const createNewpost = async () => {
-    await axios
-      .post(`${prodUrl}/user/createNewPost`, {
-        createNewPost,
-        userExist,
-      })
-      .then((res) => {})
-      .catch((err) => {
-        console.log(err);
-      });
+    setCreateNewPostModalIsOpen(true);
   };
 
   const deleteMyAccount = async (e) => {
@@ -59,6 +46,7 @@ Facilis, itecto deleniti cum commodi atque laborum unde.Odio alias sapiente labo
       })
       .then((res) => {
         setMessage(res.data.message);
+        notify(`Votre compte a été supprimé`);
         setUserExist(!userExist.logged);
         redirect("/");
       })
@@ -67,7 +55,7 @@ Facilis, itecto deleniti cum commodi atque laborum unde.Odio alias sapiente labo
 
   const deletePost = async (evt) => {
     const articleId = evt.target.id;
-    console.log(articleId);
+
     await axios
       .delete(`${prodUrl}/user/${articleId}`, {
         articleId,
@@ -75,13 +63,31 @@ Facilis, itecto deleniti cum commodi atque laborum unde.Odio alias sapiente labo
       .then((res) => {
         setMessage(res.data.message);
       })
-      .catch((err) => {
-        console.log(err);
-      });
+      .catch((err) => {});
   };
 
   return (
     <div className="backoffice_container">
+      <ToastContainer
+        position="top-center"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="dark"
+      />
+      {createNewPostModalIsOpen && (
+        <CreateNewPost
+          createNewPostModalIsOpen={createNewPostModalIsOpen}
+          setCreateNewPostModalIsOpen={setCreateNewPostModalIsOpen}
+          userExist={userExist}
+          setUserExist={setUserExist}
+        />
+      )}
       <div className="backoffice_title">
         <h2>Mon Backoffice</h2>
 

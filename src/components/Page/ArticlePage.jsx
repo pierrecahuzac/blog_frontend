@@ -22,9 +22,7 @@ export default function ArticlePage() {
       .then((res) => {
         setArticle(res.data.article.fields);
       })
-      .catch((err) => {
-        console.log(err);
-      });
+      .catch((err) => {});
   };
 
   return (
@@ -48,7 +46,9 @@ export default function ArticlePage() {
           )}
         </div>
         <p className="article_content">{article.content}</p>
-        <div className="article_user">{article.user}</div>
+        <Link to={`/blog/user/${article.user}`}>
+          <div className="article_user">{article.user}</div>
+        </Link>
       </div>
     </div>
   );

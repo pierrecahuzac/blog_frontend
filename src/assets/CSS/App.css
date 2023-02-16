@@ -9,3 +9,18 @@ a:visited {
   text-decoration: none;
   color: beige;
 }
+
+button {
+  width: auto;
+  height: 40px;
+  font-size: 16px;
+  border-radius: 5px;
+  border: none;
+  background-color: rgb(10, 62, 23);
+  color: beige;
+  padding: 0 5px;
+}
+button:hover {
+  background-color: rgb(13, 91, 33);
+  transition: 0.2s;
+}
