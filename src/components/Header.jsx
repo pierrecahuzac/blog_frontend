@@ -2,27 +2,28 @@ import { RxHamburgerMenu, RxCross1 } from "react-icons/rx";
 import { FaBloggerB } from "react-icons/fa";
 import { NavLink, Link } from "react-router-dom";
 import { useState, useEffect } from "react";
+import { UseDarkModeContext } from "../utils/darkModeContext";
 
 import "../assets/CSS/header.scss";
 
 export default function Header({ userExist }) {
+  const { isDarkMode, setIsDarkMode } = UseDarkModeContext();
   const [menuIsOpen, setMenuIsOpen] = useState(false);
   const [inputValue, setInputValue] = useState("");
   const closeMenu = () => {
     setMenuIsOpen(false);
   };
   const openMenu = () => {
-    setMenuIsOpen(true);
-  };
-  let activeStyle = {
-    textDecoration: "underline",
+    setMenuIsOpen(!isDarkMode);
   };
 
-  let activeClassName = "underline";
   const handleInput = (e) => {
     setInputValue(e.target.value);
   };
-
+  const changeDarkMode = (e) => {
+    e.preventDefault();
+    setIsDarkMode(!isDarkMode);
+  };
   return (
     <header className="header">
       <nav className="header_container">
@@ -86,6 +87,11 @@ export default function Header({ userExist }) {
                 </li>
               </div>
             )}
+            <li>
+              <button onClick={changeDarkMode} className="header_btn_dark">
+                DarkMode
+              </button>
+            </li>
           </ul>
         </div>
         <div

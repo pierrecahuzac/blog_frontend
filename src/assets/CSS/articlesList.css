@@ -3,13 +3,12 @@
   display: flex;
   flex-direction: column;
   margin: 50px auto;
-  color: beige;
+
   min-height: 100%;
 }
 .article-title {
   font-family: "Calibri light", sans-serif;
   font-size: 22px;
-  color: beige;
 }
 .article-content {
   font-family: "Georgia", sans-serif;
@@ -21,7 +20,7 @@
   display: -webkit-box;
   overflow-y: hidden;
   margin-bottom: 10px;
-  color: beige;
+
   padding: 0 5px;
 }
 .article-createdTime {

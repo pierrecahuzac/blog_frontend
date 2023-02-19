@@ -1,5 +1,5 @@
 import { useState } from "react";
-
+import { UseDarkModeContext } from "./utils/darkModeContext";
 import {
   BrowserRouter,
   Route,
@@ -15,9 +15,10 @@ import Error from "./components/Page/Error.jsx";
 import ArticlePage from "./components/Page/ArticlePage.jsx";
 import UserArticlesPage from "./components/Page/UserArticlesPage.jsx";
 import Backoffice from "./components/Page/Backoffice";
-import "./assets/CSS/App.css";
+import "./assets/CSS/App.scss";
 
 export default function App() {
+  const { isDarkMode, setIsDarkMode } = UseDarkModeContext();
   const [userExist, setUserExist] = useState({
     email: "",
     display_name: "",
@@ -26,7 +27,7 @@ export default function App() {
   });
   return (
     <BrowserRouter>
-      <div className="App">
+      <div className={isDarkMode ? "App--dark" : "App"}>
         <Header userExist={userExist} setUserExist={setUserExist} />
         <Routes>
           <Route path="/" element={<ArticlesList />} />

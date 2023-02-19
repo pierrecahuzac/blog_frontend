@@ -2,12 +2,16 @@
   width: 100%;
   min-height: 100vh;
   box-sizing: border-box;
-  background-color: #242628;
+  background-color: #8f9092;
+  color: #242628;
   font-family: "Sofia Pro", sans-serif;
+  &--dark {
+    background-color: #242628;
+    color: #8f9092;
+  }
 }
 a:visited {
   text-decoration: none;
-  color: beige;
 }
 
 button {
@@ -17,7 +21,7 @@ button {
   border-radius: 5px;
   border: none;
   background-color: rgb(10, 62, 23);
-  color: beige;
+
   padding: 0 5px;
 }
 button:hover {
