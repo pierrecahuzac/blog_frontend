@@ -1,44 +1,45 @@
 import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, redirect } from "react-router-dom";
+import { useUserContext } from "../../utils/userContext";
 import axios from "axios";
 
 import "../../assets/CSS/signin.css";
 
-export default function Signin({ userExist, setUserExist }) {
-  const [email, setEmail] = useState("");
+export default function Signin() {
+  const { user, setUser } = useUserContext();
   const [erreur, setErreur] = useState("");
-  const [password, setPassword] = useState("");
 
   const changeEmail = (e) => {
-    e.preventDefault();
     setErreur("");
-    setEmail(e.target.value);
+    setUser({ ...user, email: e.target.value });
   };
   const changePassword = (e) => {
-    e.preventDefault();
     setErreur("");
-    setPassword(e.target.value);
+    setUser({ ...user, password: e.target.value });
   };
   const prodUrl = import.meta.env.VITE_BACK_PROD_URL;
   const login = async () => {
-    if (!password || !email) {
+    if (!user.password || !user.email) {
       setErreur(`Pas d'email ou de mot de passe`);
       return;
     }
     await axios
       .post(`${prodUrl}/user/login`, {
-        email,
-        password,
+        email: user.email,
+        password: user.password,
       })
       .then((res) => {
-        setUserExist({
-          email: res.data.record.fields.email,
+        setUser({
           display_name: res.data.record.fields.display_name,
           logged: res.data.logged,
           userId: res.data.record.id,
         });
+        console.log("je redirect vers la page de l'user");
+        return redirect(`/backoffice/user/${user.userId}`);
       })
-      .catch((err) => {});
+      .catch((err) => {
+        console.log(err);
+      });
   };
 
   return (
@@ -49,8 +50,9 @@ export default function Signin({ userExist, setUserExist }) {
             <input
               type="email"
               className="form_input"
-              value={email}
+              value={user.email}
               onChange={changeEmail}
+              placeholder="Email"
             />
           </div>
           <div className="form_input_password">
@@ -58,19 +60,19 @@ export default function Signin({ userExist, setUserExist }) {
               type="password"
               className="form_password"
               onChange={changePassword}
-              value={password}
+              value={user.password}
+              placeholder="Mot de passe"
             />
           </div>
         </form>
       </div>
       <button type="submit" onClick={login} className="btn_submit_account">
-        Accéder à mon compte
+        Connexion
       </button>
       <Link to="/signup" className="link_account">
         Vous n'avez pas de compte ?
       </Link>
       <div className="erreur">{erreur}</div>
-      <div>{userExist.email}</div>
     </div>
   );
 }

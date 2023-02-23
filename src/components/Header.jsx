@@ -1,20 +1,26 @@
 import { RxHamburgerMenu, RxCross1 } from "react-icons/rx";
+import { MdLightbulb, MdLightbulbOutline } from "react-icons/md";
 import { FaBloggerB } from "react-icons/fa";
 import { NavLink, Link } from "react-router-dom";
-import { useState, useEffect } from "react";
-import { UseDarkModeContext } from "../utils/darkModeContext";
+import { useState } from "react";
+import { useDarkModeContext } from "../utils/darkModeContext";
+import { useUserContext } from "../utils/userContext";
+import moon from "../assets/png/moon.png";
+import sun from "../assets/png/sun.png";
+import logo from "../assets/png/content-writing.png";
 
 import "../assets/CSS/header.scss";
 
-export default function Header({ userExist }) {
-  const { isDarkMode, setIsDarkMode } = UseDarkModeContext();
+export default function Header() {
+  const { user, setUser } = useUserContext();
+  const { isDarkMode, setIsDarkMode } = useDarkModeContext();
   const [menuIsOpen, setMenuIsOpen] = useState(false);
   const [inputValue, setInputValue] = useState("");
   const closeMenu = () => {
     setMenuIsOpen(false);
   };
   const openMenu = () => {
-    setMenuIsOpen(!isDarkMode);
+    setMenuIsOpen(!menuIsOpen);
   };
 
   const handleInput = (e) => {
@@ -24,16 +30,15 @@ export default function Header({ userExist }) {
     e.preventDefault();
     setIsDarkMode(!isDarkMode);
   };
+  const signout = () => {
+    console.log("je me déco");
+  };
   return (
-    <header className="header">
+    <header className={isDarkMode ? "header--dark" : "header"}>
       <nav className="header_container">
         <div className="header_logo_container">
           <Link to="/">
-            <img
-              src="https://cdn.logojoy.com/wp-content/uploads/2018/05/30164225/572-768x591.png"
-              alt="logo"
-              className="header_logo"
-            />
+            <img src={logo} alt="logo" className="header_logo" />
           </Link>
         </div>
 
@@ -50,10 +55,7 @@ export default function Header({ userExist }) {
 
               <Link to={`/blog/user/${inputValue}`}>
                 {inputValue && (
-                  <button
-                    action="submit"
-                    /* onClick={searchForUserPosts} */
-                  >
+                  <button action="submit" className="btn_search">
                     RECHERCHER
                   </button>
                 )}
@@ -62,15 +64,18 @@ export default function Header({ userExist }) {
             <li className="header_link">
               <NavLink to="/">ACCUEIL</NavLink>
             </li>
-            {userExist.logged ? (
-              <div>
+            {user.logged ? (
+              <div className="header_link_connection">
                 <li className="header_link">
                   <NavLink
-                    to={`/backoffice/user/${userExist.userId}`}
+                    to={`/backoffice/user/${user.userId}`}
                     onClick={closeMenu}
                   >
-                    {userExist.display_name}
+                    {user.display_name.toUpperCase()}
                   </NavLink>
+                </li>
+                <li className="header_link_signout" onClick={signout}>
+                  SE DECONNECTER
                 </li>
               </div>
             ) : (
@@ -87,10 +92,15 @@ export default function Header({ userExist }) {
                 </li>
               </div>
             )}
-            <li>
-              <button onClick={changeDarkMode} className="header_btn_dark">
-                DarkMode
-              </button>
+
+            <li className="header_link">
+              <div onClick={changeDarkMode} className="header_btn_dark">
+                {isDarkMode ? (
+                  <img src={sun} className="header_btn_dark_svg" alt="" />
+                ) : (
+                  <img src={moon} className="header_btn_dark_svg" alt="" />
+                )}
+              </div>
             </li>
           </ul>
         </div>
@@ -100,20 +110,32 @@ export default function Header({ userExist }) {
           }
         >
           <ul className="header_links_mobile">
+            <input
+              type="text"
+              value={inputValue}
+              className="header_input"
+              onChange={handleInput}
+              placeholder="Nom d'utilisateur recherché"
+            />
             <li className="header_link_mobile home">
               <NavLink to="/" onClick={closeMenu}>
                 ACCUEIL
               </NavLink>
             </li>
-            {userExist.logged ? (
-              <li className="header_link_mobile">
-                <NavLink
-                  to={`/backoffice/user/${userExist.userId}`}
-                  onClick={closeMenu}
-                >
-                  {userExist.display_name}
-                </NavLink>
-              </li>
+            {user.logged ? (
+              <div className="header_link_connection_mobile">
+                <li className="header_link_mobile">
+                  <NavLink
+                    to={`/backoffice/user/${user.userId}`}
+                    onClick={closeMenu}
+                  >
+                    {user.display_name}
+                  </NavLink>
+                </li>
+                <li className="header_link_mobile signout" onClick={signout}>
+                  SE DECONNECTER
+                </li>
+              </div>
             ) : (
               <div className="header_links_connection">
                 <li className="header_link_mobile">
@@ -126,9 +148,27 @@ export default function Header({ userExist }) {
                     SIGNIN
                   </NavLink>
                 </li>
+                <li className="header_link">
+                  <button className="header_btn_dark">
+                    {isDarkMode ? (
+                      <img
+                        src={sun}
+                        onClick={changeDarkMode}
+                        className="header_btn_dark_svg"
+                        alt=""
+                      />
+                    ) : (
+                      <img
+                        src={moon}
+                        onClick={changeDarkMode}
+                        className="header_btn_dark_svg"
+                        alt=""
+                      />
+                    )}
+                  </button>
+                </li>
               </div>
             )}
-
             <li className="header_link_mobile burger_close">
               <RxCross1 onClick={closeMenu} />
             </li>

@@ -13,8 +13,16 @@
 
 .signup_container,
 .signup_form {
-  width: 300px;
+  display: flex;
+  flex-direction: column;
+  width: 500px;
+  height: 400px;
+  background-color: #dcdde1;
+  justify-content: center;
+  align-items: center;
+  border-radius: 5px;
 }
+
 form svg {
   color: white;
   width: 30px;
@@ -58,5 +66,24 @@ input:focus {
   font-size: 16px;
   border-radius: 5px;
   border: none;
-  background-color: black;
+  background-color: #4cd137;
+  margin-top: 20px;
+}
+.btn_submit_new_account:hover {
+  width: 200px;
+  height: 50px;
+  font-size: 16px;
+  border-radius: 5px;
+  border: none;
+  background-color: #44bd32;
+  transition: 0.3s;
+}
+.form_reveal {
+  width: 40px;
+  height: 40px;
+  margin-left: 20px;
+}
+.form_reveal > svg {
+  width: 100%;
+  height: auto;
 }

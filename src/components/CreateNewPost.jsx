@@ -3,6 +3,8 @@ import validUrl from "valid-url";
 import { useState, useEffect } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import { successToast, errorToast } from "./Toast";
+import { useUserContext } from "../utils/userContext";
+
 import AOS from "aos";
 import "../assets/CSS/createNewPostModal.scss";
 import "aos/dist/aos.css";
@@ -10,12 +12,11 @@ import "react-toastify/dist/ReactToastify.css";
 export default function CreateNewPost({
   createNewPostModalIsOpen,
   setCreateNewPostModalIsOpen,
-  userExist,
-  setUserExist,
 }) {
   useEffect(() => {
     AOS.init();
   });
+  const { user, setUser } = useUserContext();
   const prodUrl = import.meta.env.VITE_BACK_PROD_URL;
   const [newPostTitle, setNewPostTitle] = useState("");
   const [newPostContent, setNewPostContent] = useState("");
@@ -53,9 +54,14 @@ export default function CreateNewPost({
         newPostTitle,
         newPostContent,
         newPostURL,
+        email: user.email,
+        userID: user.userID,
+        createdBy: user.cretedBy,
+        display_name: user.display_name,
+        user: user.display_name,
       })
       .then((res) => {
-        successToast("Post crée avec succès :)");
+        successToast("Post crée avec succès : ", res);
       })
       .catch((err) => {});
   };

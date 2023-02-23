@@ -8,12 +8,12 @@ import Loading from "../Loading";
 import "../../assets/CSS/articlesList.css";
 
 export default function ArticlesList() {
+  const [articlesList, setArticlesList] = useState([]);
   useEffect(() => {
     setLoading(true);
     getArticles();
   }, []);
 
-  const [articlesList, setArticlesList] = useState([]);
   const [loading, setLoading] = useState(true);
 
   const getArticles = async () => {

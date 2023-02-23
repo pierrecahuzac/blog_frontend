@@ -1,5 +1,7 @@
 import { useState } from "react";
-import { UseDarkModeContext } from "./utils/darkModeContext";
+import { useDarkModeContext } from "./utils/darkModeContext";
+import { useUserContext } from "./utils/userContext";
+
 import {
   BrowserRouter,
   Route,
@@ -18,45 +20,30 @@ import Backoffice from "./components/Page/Backoffice";
 import "./assets/CSS/App.scss";
 
 export default function App() {
-  const { isDarkMode, setIsDarkMode } = UseDarkModeContext();
-  const [userExist, setUserExist] = useState({
-    email: "",
-    display_name: "",
-    logged: "",
-    userId: "",
-  });
+  const { isDarkMode, setIsDarkMode } = useDarkModeContext();
+  const { user, setUser } = useUserContext();
+
   return (
     <BrowserRouter>
       <div className={isDarkMode ? "App--dark" : "App"}>
-        <Header userExist={userExist} setUserExist={setUserExist} />
+        <Header />
         <Routes>
           <Route path="/" element={<ArticlesList />} />
           <Route path="blog/:articleId" element={<ArticlePage />} />
           <Route
             path="/blog/user/:displayName"
             element={<UserArticlesPage />}
-            userExist={userExist}
+            user={user.display_name}
           />
           <Route path="/signup" element={<SignUp />} />
           <Route
             path="/backoffice/user/:userId"
-            element={
-              userExist.logged ? (
-                <Backoffice userExist={userExist} setUserExist={setUserExist} />
-              ) : (
-                <Link to="/" />
-              )
-            }
+            element={user.logged ? <Backoffice /> : <Link to="/" />}
           />
-          <Route
-            path="/signin"
-            element={
-              <Signin userExist={userExist} setUserExist={setUserExist} />
-            }
-          />
+          <Route path="/signin" element={<Signin />} />
           <Route path="*" element={<Error />} />
         </Routes>
-      </div>
+      </div>{" "}
     </BrowserRouter>
   );
 }

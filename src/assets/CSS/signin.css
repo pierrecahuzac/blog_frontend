@@ -4,7 +4,6 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-
   width: 100%;
   min-height: calc(100% - 80px);
   text-align: center;
@@ -13,13 +12,38 @@
 
 .signin_container,
 .signin_form {
-  width: 300px;
+  display: flex;
+  flex-direction: column;
+  width: 500px;
+  height: 200px;
+  background-color: #dcdde1;
+  justify-content: center;
+  align-items: center;
+  border-radius: 5px;
+}
+.form_input,
+.form_password {
+  text-align: center;
+  background-color: #f5f6fa;
+  width: 330px;
+  height: 40px;
+  border-radius: 5px;
+  border: none;
+  font-size: 25px;
 }
 
 .erreur {
   font-size: 20px;
   margin-top: 20px;
-  color: red;
+  color: #e84118;
+}
+.erreur:hover {
+  font-size: 20px;
+  margin-top: 20px;
+  /*  color: $color-error-hover; */
+}
+.link_account {
+  margin-top: 50px;
 }
 .link_account:hover {
   color: rgb(179, 179, 163);
@@ -31,5 +55,13 @@
   font-size: 16px;
   border-radius: 5px;
   border: none;
-  background-color: black;
+  background-color: #4cd137;
+  margin-bottom: 20px;
+  margin-top: 20px;
+  color: #f5f6fa;
+}
+.btn_submit_account:hover {
+  background-color: #44bd32;
+  transition: 0.3s;
+  color: #dcdde1 !important;
 }
