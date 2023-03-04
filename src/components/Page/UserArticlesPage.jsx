@@ -1,5 +1,6 @@
 import axios from "axios";
 import { useState, useEffect } from "react";
+import { useUserContext } from "../../utils/userContext";
 
 import { useParams, Link } from "react-router-dom";
 import Loading from "../Loading";
@@ -10,17 +11,19 @@ export default function UserArticlesPage({ userExist }) {
   const [loading, setLoading] = useState(true);
   const [postsArray, setPostsArray] = useState([]);
   const { displayName } = useParams();
-
+  const { user, setUser } = useUserContext();
   useEffect(() => {
     setLoading(true);
-    getAllPostsFromUser();
+    console.log(user.id);
+    getAllPostsFromUser(user.id);
   }, []);
 
   const getAllPostsFromUser = async () => {
     await axios
-      .get(`${prodUrl}/blog/user/${displayName}`)
+      .get(`${prodUrl}/api/blog/user/${user.id}`)
       .then((res) => {
-        setPostsArray(res.data.result);
+        console.log(res);
+        /* setPostsArray(res.data.result); */
         setLoading(false);
       })
       .catch((err) => {

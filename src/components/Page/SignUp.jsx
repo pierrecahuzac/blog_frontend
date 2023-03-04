@@ -13,7 +13,7 @@ export default function SignUp() {
   const { user, setUser } = useUserContext();
   const [passwordReveal, setPasswordReveal] = useState(false);
   const [email, setEmail] = useState("");
-  const [display_name, setDisplayName] = useState("");
+  const [username, setDisplayName] = useState("");
   const [password, setPassword] = useState("");
   const [password_validation, setPasswordValidation] = useState("");
   const [userCreated, setUserCreated] = useState({});
@@ -31,7 +31,7 @@ export default function SignUp() {
     setErreur("");
     e.preventDefault();
     setDisplayName(e.target.value);
-    setUser({ ...user, display_name: e.target.value });
+    setUser({ ...user, username: e.target.value });
   };
   const changePassword = (e) => {
     setErreur("");
@@ -97,17 +97,18 @@ export default function SignUp() {
       return;
     }
     await axios
-      .post(`${prodUrl}/user/create_user`, {
+      .post(`${prodUrl}/api/user/create_user`, {
         email: user.email,
         password: user.password,
         password_validation: user.password_validation,
-        display_name: user.display_name,
+        username: user.username,
       })
       .then((res) => {
         setUserCreated(res.data);
+        console.log(res.data);
       })
       .catch((err) => {
-        setErreur(err.response.data.erreur);
+        setErreur(err.response.data.error);
       });
   };
   return (
@@ -123,11 +124,11 @@ export default function SignUp() {
               placeholder="Email"
             />
           </div>
-          <div className="form_input_display_name">
+          <div className="form_input_username">
             <input
               type="text"
               className="form_input"
-              value={user.display_name}
+              value={user.username}
               onChange={changeDisplayName}
               placeholder="Nom d'utilisateur"
             />

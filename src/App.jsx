@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useDarkModeContext } from "./utils/darkModeContext";
 import { useUserContext } from "./utils/userContext";
+import { useGlobalContext } from "./utils/globalContext";
 
 import {
   BrowserRouter,
@@ -31,9 +32,9 @@ export default function App() {
           <Route path="/" element={<ArticlesList />} />
           <Route path="blog/:articleId" element={<ArticlePage />} />
           <Route
-            path="/blog/user/:displayName"
+            path="/blog/user/:id"
             element={<UserArticlesPage />}
-            user={user.display_name}
+            user={user.username}
           />
           <Route path="/signup" element={<SignUp />} />
           <Route

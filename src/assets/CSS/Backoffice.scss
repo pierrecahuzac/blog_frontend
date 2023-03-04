@@ -13,6 +13,7 @@
 .my_posts {
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
 }
 .message {
   font-size: 20px;

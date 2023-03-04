@@ -13,7 +13,6 @@ export default function Backoffice() {
       console.log("utilisateur non reconnu, redirection vers l'accueil");
       return redirect("/");
     }
-    console.log("ok utilisateur reconnu");
   }, []);
   const { user, setUser } = useUserContext();
   const [myPosts, setMyPosts] = useState([]);
@@ -28,11 +27,13 @@ export default function Backoffice() {
     getMyPosts();
   }, []);
   const notify = () => toast(`Votre compte a été supprimé`);
+
+  // récupérer les posts de l'user
   const getMyPosts = async () => {
     await axios
-      .get(`${prodUrl}/blog/user/${user.display_name}`)
+      .get(`${prodUrl}/api/blog/user/${user.userId}`)
       .then((res) => {
-        setMyPosts(res.data.result);
+        setMyPosts(res.data.postsUser);
       })
       .catch((err) => {
         console.error(err);
@@ -46,7 +47,7 @@ export default function Backoffice() {
   const deleteMyAccount = async (e) => {
     e.preventDefault();
     await axios
-      .delete(`${prodUrl}/user/${userId}/deleteAccount`, {
+      .delete(`${prodUrl}/api/user/${userId}/deleteAccount`, {
         email: user.email,
         userId: user.userID,
       })
@@ -61,6 +62,7 @@ export default function Backoffice() {
 
   const deletePost = async (evt) => {
     const articleId = evt.target.id;
+    console.log(articleId);
     await axios
       .delete(`${prodUrl}/user/${articleId}`, {
         articleId,
@@ -108,36 +110,31 @@ export default function Backoffice() {
       <div className="message">{message}</div>
       <h2> Mes posts </h2>
       <div className="my_posts">
-        {myPosts.map((article) => (
-          <div className="article" key={article.id} id={article.id}>
-            {article.fields ? (
-              <div className="article-container">
-                {article.fields.picture && (
-                  <div className="img-container">
-                    {article.fields.picture.map((img) => (
-                      <img
-                        src={img.url}
-                        alt={img.filename}
-                        className="article-picture"
-                        key={img.filename}
-                      />
-                    ))}
-                  </div>
+        {myPosts.map((post) => (
+          <div className="article" key={post.id} id={post.id}>
+            <div className="article-container">
+              <div className="img-container">
+                {post.picture && (
+                  <img
+                    src={post.picture}
+                    alt={post.picture}
+                    className="article-picture"
+                    key={post.picture}
+                  />
                 )}
-                <h2 className="article-title">{article.fields.title}</h2>
-                <p className="article-content">{article.fields.content}</p>
-                <button
-                  className="article-delete_article_btn"
-                  onClick={deletePost}
-                >
-                  {" "}
-                  Supprimer ce post
-                </button>
               </div>
-            ) : (
-              ""
-            )}
-            <p className="article-createdTime">{article.createdTime}</p>
+              <h2 className="article-title">{post.title}</h2>
+
+              <p className="article-content">{post.content}</p>
+              <p className="article-createdTime">{post.createdAt}</p>
+
+              <button
+                className="article-delete_article_btn"
+                onClick={deletePost}
+              >
+                Supprimer ce post
+              </button>
+            </div>
           </div>
         ))}
       </div>

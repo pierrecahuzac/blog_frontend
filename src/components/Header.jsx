@@ -71,7 +71,7 @@ export default function Header() {
                     to={`/backoffice/user/${user.userId}`}
                     onClick={closeMenu}
                   >
-                    {user.display_name.toUpperCase()}
+                    {user.username.toUpperCase()}
                   </NavLink>
                 </li>
                 <li className="header_link_signout" onClick={signout}>
@@ -129,7 +129,7 @@ export default function Header() {
                     to={`/backoffice/user/${user.userId}`}
                     onClick={closeMenu}
                   >
-                    {user.display_name}
+                    {user.username.toUpperCase()}
                   </NavLink>
                 </li>
                 <li className="header_link_mobile signout" onClick={signout}>

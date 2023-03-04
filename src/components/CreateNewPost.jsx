@@ -50,15 +50,14 @@ export default function CreateNewPost({
       return;
     }
     await axios
-      .post(`${prodUrl}/user/createNewPost`, {
+      .post(`${prodUrl}/api/user/createNewPost`, {
         newPostTitle,
         newPostContent,
         newPostURL,
         email: user.email,
         userID: user.userID,
-        createdBy: user.cretedBy,
-        display_name: user.display_name,
-        user: user.display_name,
+        createdBy: user.username,
+        username: user.username,
       })
       .then((res) => {
         successToast("Post crée avec succès : ", res);

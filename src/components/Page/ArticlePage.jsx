@@ -18,9 +18,9 @@ export default function ArticlePage() {
 
   const getOneArticle = async () => {
     await axios
-      .get(`${prodUrl}/blog/${articleId}`)
+      .get(`${prodUrl}/api/blog/${articleId}`)
       .then((res) => {
-        setArticle(res.data.article.fields);
+        setArticle(res.data.post);
       })
       .catch((err) => {});
   };
@@ -37,17 +37,13 @@ export default function ArticlePage() {
         <div className="article_date">{article.Date}</div>
         <div className="article_id">{article.id}</div>
         <div className="article_img">
-          {article.picture ? (
-            <img src={article.picture.map((elem) => elem.url)} alt="" />
-          ) : (
-            <div>
-              <Loading />
-            </div>
+          {article.picture && (
+            <img src={article.picture} alt={article.picture} />
           )}
         </div>
         <p className="article_content">{article.content}</p>
-        <Link to={`/blog/user/${article.user}`}>
-          <div className="article_user">{article.user}</div>
+        <Link to={`/blog/user/${article.authorId}`}>
+          <div className="article_user">{article.authorId}</div>
         </Link>
       </div>
     </div>

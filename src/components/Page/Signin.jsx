@@ -24,21 +24,26 @@ export default function Signin() {
       return;
     }
     await axios
-      .post(`${prodUrl}/user/login`, {
+      .post(`${prodUrl}/api/user/login`, {
         email: user.email,
         password: user.password,
       })
       .then((res) => {
         setUser({
-          display_name: res.data.record.fields.display_name,
-          logged: res.data.logged,
-          userId: res.data.record.id,
+          username: res.data.user.username,
+          logged: true,
+          userId: res.data.user.id,
+          email: res.data.user.email,
         });
-        console.log("je redirect vers la page de l'user");
-        return redirect(`/backoffice/user/${user.userId}`);
+        console.log(res.data.success);
+        console.log(res.data.user);
+        /*        console.log("je redirect vers la page de l'user");
+        return redirect(`/backoffice/user/${user.userId}`); */
       })
       .catch((err) => {
         console.log(err);
+
+        /*   setErreur(err.response.data.error); */
       });
   };
 
