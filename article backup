@@ -1,0 +1,21 @@
+/*   <div
+            className="article"
+            key={article.id}
+            id={article.id}
+            onClick={getArticleId}
+          >
+            <Link to={`/blog/${article.id}`}>
+              <div className="img-container">
+                <img
+                  src={article.picture}
+                  alt={article.filename}
+                  className="article-picture"
+                  key={article.picture}
+                />
+              </div>
+              <h2 className="article-title">{article.title}</h2>
+              <p className="article-content">{article.content}</p>
+              <p className="article-content">{article.createdAt}</p>
+            </Link>
+            <p className="article-createdTime">{article.user}</p>
+          </div> */

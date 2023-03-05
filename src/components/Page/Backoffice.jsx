@@ -3,7 +3,9 @@ import { useState, useEffect } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import { redirect, useParams } from "react-router-dom";
 import { useUserContext } from "../../utils/userContext";
+import Post from "../Post";
 import CreateNewPost from "../CreateNewPost";
+
 import "../../assets/CSS/Backoffice.scss";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -47,7 +49,7 @@ export default function Backoffice() {
   const deleteMyAccount = async (e) => {
     e.preventDefault();
     await axios
-      .delete(`${prodUrl}/api/user/${userId}/deleteAccount`, {
+      .delete(`${prodUrl}/api/user/${user.userId}/deleteAccount`, {
         email: user.email,
         userId: user.userID,
       })
@@ -64,7 +66,7 @@ export default function Backoffice() {
     const articleId = evt.target.id;
     console.log(articleId);
     await axios
-      .delete(`${prodUrl}/user/${articleId}`, {
+      .delete(`${prodUrl}/api/user/${articleId}`, {
         articleId,
       })
       .then((res) => {
@@ -96,9 +98,9 @@ export default function Backoffice() {
         />
       )}
       <div className="backoffice_title">
-        <h2>Mon Backoffice</h2>
+        <h2>Mon compte</h2>
       </div>
-      <div>
+      <div className="btn_container">
         <button onClick={deleteMyAccount} className="btn_delete_account">
           Supprimer mon compte
         </button>
@@ -111,30 +113,20 @@ export default function Backoffice() {
       <h2> Mes posts </h2>
       <div className="my_posts">
         {myPosts.map((post) => (
-          <div className="article" key={post.id} id={post.id}>
-            <div className="article-container">
-              <div className="img-container">
-                {post.picture && (
-                  <img
-                    src={post.picture}
-                    alt={post.picture}
-                    className="article-picture"
-                    key={post.picture}
-                  />
-                )}
-              </div>
-              <h2 className="article-title">{post.title}</h2>
-
-              <p className="article-content">{post.content}</p>
-              <p className="article-createdTime">{post.createdAt}</p>
-
-              <button
-                className="article-delete_article_btn"
-                onClick={deletePost}
-              >
-                Supprimer ce post
-              </button>
-            </div>
+          <div className="post_container">
+            <Post
+              id={post.id}
+              title={post.title}
+              filename={post.filename}
+              picture={post.picture}
+              content={post.content}
+              createdAt={post.createdAt}
+              postId
+              key={post.id}
+            />
+            <button className="btn_delete_post" onClick={deletePost}>
+              Supprimer ce post
+            </button>
           </div>
         ))}
       </div>

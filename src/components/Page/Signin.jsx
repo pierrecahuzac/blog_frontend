@@ -23,28 +23,40 @@ export default function Signin() {
       setErreur(`Pas d'email ou de mot de passe`);
       return;
     }
-    await axios
-      .post(`${prodUrl}/api/user/login`, {
+    try {
+      const res = await axios.post(`${prodUrl}/api/user/login`, {
         email: user.email,
         password: user.password,
-      })
-      .then((res) => {
+      });
+      setUser({
+        username: res.data.user.username,
+        logged: true,
+        userId: res.data.user.id,
+        email: res.data.user.email,
+      });
+      localStorage.setItem("email", user.email);
+      localStorage.setItem("username", user.username);
+      localStorage.setItem("userId", user.userId);
+      localStorage.setItem("logged", true);
+      return redirect(`/backoffice/user/${user.userId}`);
+    } catch (err) {
+      console.log(err);
+
+      setErreur(err.response.data.error);
+    }
+    /*  .then((res) => {
         setUser({
           username: res.data.user.username,
           logged: true,
           userId: res.data.user.id,
           email: res.data.user.email,
         });
-        console.log(res.data.success);
-        console.log(res.data.user);
-        /*        console.log("je redirect vers la page de l'user");
-        return redirect(`/backoffice/user/${user.userId}`); */
-      })
-      .catch((err) => {
-        console.log(err);
 
-        /*   setErreur(err.response.data.error); */
-      });
+     
+      }) 
+      .catch((err) => {
+        
+      });*/
   };
 
   return (

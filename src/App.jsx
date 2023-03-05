@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { useDarkModeContext } from "./utils/darkModeContext";
+import { useEffect, useState } from "react";
+
 import { useUserContext } from "./utils/userContext";
 import { useGlobalContext } from "./utils/globalContext";
 
@@ -21,9 +21,15 @@ import Backoffice from "./components/Page/Backoffice";
 import "./assets/CSS/App.scss";
 
 export default function App() {
-  const { isDarkMode, setIsDarkMode } = useDarkModeContext();
+  const { isDarkMode, setIsDarkMode } = useGlobalContext();
   const { user, setUser } = useUserContext();
+  const [email, setEmail] = useState();
 
+  useEffect(() => {
+    const emailToGet = localStorage.getItem("email", JSON.stringify(email));
+    console.log(emailToGet);
+    setEmail(emailToGet);
+  }, []);
   return (
     <BrowserRouter>
       <div className={isDarkMode ? "App--dark" : "App"}>
@@ -31,8 +37,9 @@ export default function App() {
         <Routes>
           <Route path="/" element={<ArticlesList />} />
           <Route path="blog/:articleId" element={<ArticlePage />} />
+          <Route path="/blog/user" element={<Error />} />
           <Route
-            path="/blog/user/:id"
+            path="/blog/user/:username"
             element={<UserArticlesPage />}
             user={user.username}
           />

@@ -4,26 +4,25 @@ import { useUserContext } from "../../utils/userContext";
 
 import { useParams, Link } from "react-router-dom";
 import Loading from "../Loading";
-import "../../assets/CSS/articlesList.css";
+import "../../assets/CSS/articlesList.scss";
 
 export default function UserArticlesPage({ userExist }) {
   const prodUrl = import.meta.env.VITE_BACK_PROD_URL;
   const [loading, setLoading] = useState(true);
   const [postsArray, setPostsArray] = useState([]);
-  const { displayName } = useParams();
+  const { id } = useParams();
   const { user, setUser } = useUserContext();
   useEffect(() => {
     setLoading(true);
-    console.log(user.id);
     getAllPostsFromUser(user.id);
   }, []);
 
   const getAllPostsFromUser = async () => {
     await axios
-      .get(`${prodUrl}/api/blog/user/${user.id}`)
+      .get(`${prodUrl}/api/blog/user/${id}`)
       .then((res) => {
-        console.log(res);
-        /* setPostsArray(res.data.result); */
+        /*   console.log(res.data.postsUser); */
+        setPostsArray(res.data.postsUser);
         setLoading(false);
       })
       .catch((err) => {
@@ -37,42 +36,33 @@ export default function UserArticlesPage({ userExist }) {
 
   return (
     <div className="articles-list">
-      {/*   <Link to={`/blog/${displayName}`}>
+      <Link to={`/blog/${id}`}>
         <button>back to user posts page</button>
-      </Link> */}
-
+      </Link>
       {loading && <Loading />}
       {!loading &&
-        postsArray.map((article) => (
+        postsArray.map((post) => (
           <div
             className="article"
-            key={article.id}
-            id={article.id}
+            key={post.id}
+            id={post.id}
             onClick={getArticleId}
           >
-            {article.fields ? (
-              <div>
-                <Link to={`/blog/${article.id}`}>
-                  {article.fields.picture && (
-                    <div className="img-container">
-                      {article.fields.picture.map((img) => (
-                        <img
-                          src={img.url}
-                          alt={img.filename}
-                          className="article-picture"
-                          key={img.filename}
-                        />
-                      ))}
-                    </div>
-                  )}
-                  <h2 className="article-title">{article.fields.title}</h2>
-                  <p className="article-content">{article.fields.content}</p>
-                </Link>
-              </div>
-            ) : (
-              ""
-            )}
-            <p className="article-createdTime">{article.createdTime}</p>
+            <div>
+              <Link to={`/blog/${post.id}`}>
+                <div className="img-container">
+                  <img
+                    src={post.url}
+                    alt={post.url}
+                    className="article-picture"
+                    key={post.url}
+                  />
+                </div>
+                <h2 className="article-title">{post.title}</h2>
+                <p className="article-content">{post.content}</p>
+              </Link>
+            </div>
+            <p className="article-createdTime">{post.createdTime}</p>
           </div>
         ))}
     </div>

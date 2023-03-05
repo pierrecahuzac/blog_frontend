@@ -3,17 +3,19 @@ import { MdLightbulb, MdLightbulbOutline } from "react-icons/md";
 import { FaBloggerB } from "react-icons/fa";
 import { NavLink, Link } from "react-router-dom";
 import { useState } from "react";
-import { useDarkModeContext } from "../utils/darkModeContext";
 import { useUserContext } from "../utils/userContext";
+import { useGlobalContext } from "../utils/globalContext";
+import { ToastContainer, toast } from "react-toastify";
+import { successToast, errorToast } from "./Toast";
 import moon from "../assets/png/moon.png";
 import sun from "../assets/png/sun.png";
-import logo from "../assets/png/content-writing.png";
-
+import logo from "../assets/svg/blog-writing-svgrepo-com.svg";
+import "react-toastify/dist/ReactToastify.css";
 import "../assets/CSS/header.scss";
 
 export default function Header() {
   const { user, setUser } = useUserContext();
-  const { isDarkMode, setIsDarkMode } = useDarkModeContext();
+  const { isDarkMode, setIsDarkMode } = useGlobalContext();
   const [menuIsOpen, setMenuIsOpen] = useState(false);
   const [inputValue, setInputValue] = useState("");
   const closeMenu = () => {
@@ -31,10 +33,24 @@ export default function Header() {
     setIsDarkMode(!isDarkMode);
   };
   const signout = () => {
+    setUser({ ...user, logged: false });
+    successToast("Utilisateur déconnecté avec succès");
     console.log("je me déco");
   };
   return (
     <header className={isDarkMode ? "header--dark" : "header"}>
+      <ToastContainer
+        position="top-center"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+      />
       <nav className="header_container">
         <div className="header_logo_container">
           <Link to="/">
@@ -44,15 +60,17 @@ export default function Header() {
 
         <div className="header_menu_desktop">
           <ul className="header_links">
+            <li className="header_link">
+              <NavLink to="/">ACCUEIL</NavLink>
+            </li>
             <li className="header_link_input">
               <input
                 type="text"
                 value={inputValue}
                 className="header_input"
                 onChange={handleInput}
-                placeholder="Nom d'utilisateur recherché"
+                placeholder="Utilisateur recherché"
               />
-
               <Link to={`/blog/user/${inputValue}`}>
                 {inputValue && (
                   <button action="submit" className="btn_search">
@@ -61,9 +79,7 @@ export default function Header() {
                 )}
               </Link>
             </li>
-            <li className="header_link">
-              <NavLink to="/">ACCUEIL</NavLink>
-            </li>
+
             {user.logged ? (
               <div className="header_link_connection">
                 <li className="header_link">
@@ -82,12 +98,12 @@ export default function Header() {
               <div className="header_links_connection">
                 <li className="header_link">
                   <NavLink to="/signup" onClick={closeMenu}>
-                    SIGNUP
+                    S'INSCRIRE
                   </NavLink>
                 </li>
                 <li className="header_link">
                   <NavLink to="/signin" onClick={closeMenu}>
-                    SIGNIN
+                    SE CONNECTER
                   </NavLink>
                 </li>
               </div>
@@ -115,7 +131,7 @@ export default function Header() {
               value={inputValue}
               className="header_input"
               onChange={handleInput}
-              placeholder="Nom d'utilisateur recherché"
+              placeholder="Utilisateur recherché"
             />
             <li className="header_link_mobile home">
               <NavLink to="/" onClick={closeMenu}>
@@ -140,12 +156,12 @@ export default function Header() {
               <div className="header_links_connection">
                 <li className="header_link_mobile">
                   <NavLink to="/signup" onClick={closeMenu}>
-                    SIGNUP
+                    S'INSCRIRE
                   </NavLink>
                 </li>
                 <li className="header_link_mobile">
                   <NavLink to="/signin" onClick={closeMenu}>
-                    SIGNIN
+                    SE CONNECTER
                   </NavLink>
                 </li>
                 <li className="header_link">

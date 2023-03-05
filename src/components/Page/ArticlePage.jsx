@@ -34,8 +34,12 @@ export default function ArticlePage() {
       </span>
       <div className="article_element">
         <h2 className="article_title">{article.title}</h2>
-        <div className="article_date">{article.Date}</div>
-        <div className="article_id">{article.id}</div>
+
+        <h2 className="article_date">{article.createdAt}</h2>
+        {article.createdAt !== article.updatedAt ? (
+          <h2 className="article_date">{article.updatedAt}</h2>
+        ) : null}
+
         <div className="article_img">
           {article.picture && (
             <img src={article.picture} alt={article.picture} />

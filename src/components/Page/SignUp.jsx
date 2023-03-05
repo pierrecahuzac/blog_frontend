@@ -105,7 +105,6 @@ export default function SignUp() {
       })
       .then((res) => {
         setUserCreated(res.data);
-        console.log(res.data);
       })
       .catch((err) => {
         setErreur(err.response.data.error);

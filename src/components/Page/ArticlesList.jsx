@@ -1,16 +1,14 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 
-import { useParams, Link } from "react-router-dom";
-
+import Post from "../Post";
 import Loading from "../Loading";
 
-import "../../assets/CSS/articlesList.css";
+import "../../assets/CSS/articlePAge.scss";
 
 export default function ArticlesList() {
   const [articlesList, setArticlesList] = useState([]);
   useEffect(() => {
-    setLoading(true);
     getArticles();
   }, []);
   const [loading, setLoading] = useState(true);
@@ -36,27 +34,17 @@ export default function ArticlesList() {
       {loading && <Loading />}
       {!loading &&
         articlesList.map((article) => (
-          <div
-            className="article"
-            key={article.id}
+          <Post
             id={article.id}
-            onClick={getArticleId}
-          >
-            <Link to={`/blog/${article.id}`}>
-              <div className="img-container">
-                <img
-                  src={article.picture}
-                  alt={article.filename}
-                  className="article-picture"
-                  key={article.picture}
-                />
-              </div>
-              <h2 className="article-title">{article.title}</h2>
-              <p className="article-content">{article.content}</p>
-              <p className="article-content">{article.createdAt}</p>
-            </Link>
-            <p className="article-createdTime">{article.user}</p>
-          </div>
+            title={article.title}
+            filename={article.filename}
+            picture={article.picture}
+            content={article.content}
+            createdAt={article.createdAt}
+            user={article.user}
+            articleId
+            key={article.id}
+          />
         ))}
     </div>
   );
