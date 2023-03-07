@@ -4,7 +4,7 @@ import axios from "axios";
 import Post from "../Post";
 import Loading from "../Loading";
 
-import "../../assets/CSS/articlePAge.scss";
+import "../../assets/CSS/articlesList.scss";
 
 export default function ArticlesList() {
   const [articlesList, setArticlesList] = useState([]);
