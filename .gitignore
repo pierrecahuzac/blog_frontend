@@ -9,6 +9,3 @@ node_modules
 /.env.local
 /.env.prod
 .vercel
-/dist
-.dist
-/dist/index.html
