@@ -56,6 +56,9 @@ input:focus {
 .signup_erreur {
   color: red;
 }
+.signup_sucess {
+  color: green;
+}
 .link_account:hover {
   color: rgb(179, 179, 163);
   transition: 0.3s;

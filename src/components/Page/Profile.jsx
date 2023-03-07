@@ -6,10 +6,10 @@ import { useUserContext } from "../../utils/userContext";
 import Post from "../Post";
 import CreateNewPost from "../CreateNewPost";
 
-import "../../assets/CSS/Backoffice.scss";
+import "../../assets/CSS/profile.scss";
 import "react-toastify/dist/ReactToastify.css";
 
-export default function Backoffice() {
+export default function Profile() {
   useEffect(() => {
     if (!user.logged) {
       console.log("utilisateur non reconnu, redirection vers l'accueil");
@@ -76,7 +76,7 @@ export default function Backoffice() {
   };
 
   return (
-    <div className="backoffice_container">
+    <div className="profile_container">
       <ToastContainer
         position="top-center"
         autoClose={5000}
@@ -97,7 +97,7 @@ export default function Backoffice() {
           setUser={setUser}
         />
       )}
-      <div className="backoffice_title">
+      <div className="profile_title">
         <h2>Mon compte</h2>
       </div>
       <div className="btn_container">

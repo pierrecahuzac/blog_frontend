@@ -61,6 +61,7 @@ export default function CreateNewPost({
       })
       .then((res) => {
         successToast("Post crée avec succès : ", res);
+        setCreateNewPostModalIsOpen(false);
       })
       .catch((err) => {});
   };

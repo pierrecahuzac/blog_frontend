@@ -84,7 +84,7 @@ export default function Header() {
               <div className="header_link_connection">
                 <li className="header_link">
                   <NavLink
-                    to={`/backoffice/user/${user.userId}`}
+                    to={`/profile/user/${user.userId}`}
                     onClick={closeMenu}
                   >
                     {user.username.toUpperCase()}
@@ -142,7 +142,7 @@ export default function Header() {
               <div className="header_link_connection_mobile">
                 <li className="header_link_mobile">
                   <NavLink
-                    to={`/backoffice/user/${user.userId}`}
+                    to={`/profile/user/${user.userId}`}
                     onClick={closeMenu}
                   >
                     {user.username.toUpperCase()}

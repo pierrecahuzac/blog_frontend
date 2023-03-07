@@ -17,29 +17,30 @@ export default function SignUp() {
   const [password, setPassword] = useState("");
   const [password_validation, setPasswordValidation] = useState("");
   const [userCreated, setUserCreated] = useState({});
-  const [erreur, setErreur] = useState();
+  const [error, setError] = useState();
+  const [sucess, setSucess] = useState();
 
   const handlePasswordVisibility = () => {
     setPasswordReveal(!passwordReveal);
   };
   const changeEmail = (e) => {
-    setErreur("");
+    setError("");
     e.preventDefault();
     setUser({ ...user, email: e.target.value });
   };
   const changeDisplayName = (e) => {
-    setErreur("");
+    setError("");
     e.preventDefault();
     setDisplayName(e.target.value);
     setUser({ ...user, username: e.target.value });
   };
   const changePassword = (e) => {
-    setErreur("");
+    setError("");
     e.preventDefault();
     setUser({ ...user, password: e.target.value });
   };
   const changePasswordValidation = (e) => {
-    setErreur("");
+    setError("");
     e.preventDefault();
     setUser({ ...user, password_validation: e.target.value });
   };
@@ -66,34 +67,33 @@ export default function SignUp() {
       .not()
       .oneOf(["Passw0rd", "Password123", "1234"]); // Blacklist these values
     if (!schema.validate(user.password)) {
-      setErreur(`Mot de passe incorrect`);
+      setError(`Mot de passe incorrect`);
       errorsArray.push(`Mot de passe incorrect`);
       return;
     }
     if (!emailValidator.validate(user.email) || !user.email) {
-      setErreur(`L'email n'est pas valide / est vide`);
+      setError(`L'email n'est pas valide / est vide`);
       errorsArray.push(`L'email n'est pas valide / est vide`);
       return;
     }
     if (!user.password) {
-      setErreur(`entrer un mot de passe`);
+      setError(`entrer un mot de passe`);
       errorsArray.push(`entrer un mot de passe`);
       return;
     }
     if (!user.password_validation) {
-      setErreur(`la validation du mot de passe est vide`);
+      setError(`la validation du mot de passe est vide`);
       errorsArray.push(`la validation du mot de passe est vide`);
       return;
     }
     if (user.password_validation !== user.password) {
-      setErreur(`les mots de passe doivent être identiques`);
+      setError(`les mots de passe doivent être identiques`);
       errorsArray.push(`les mots de passe doivent être identiques`);
       return;
     }
     if (errorsArray.length) {
-      console.log(errorsArray);
       errorsArray.forEach((err) => console.log(err));
-      setErreur(errorsArray);
+      setError(errorsArray);
       return;
     }
     await axios
@@ -105,9 +105,10 @@ export default function SignUp() {
       })
       .then((res) => {
         setUserCreated(res.data);
+        setSucess(res.data.sucess);
       })
       .catch((err) => {
-        setErreur(err.response.data.error);
+        setError(err.response.data.error);
       });
   };
   return (
@@ -173,7 +174,8 @@ export default function SignUp() {
         Vous avez un compte ?
       </Link>
       <div className="signup_message">{userCreated.message}</div>
-      <div className="signup_erreur">{erreur}</div>
+      {error && <div className="signup_erreur">{error}</div>}
+      {sucess && <div className="signup_sucess">{sucess}</div>}
     </div>
   );
 }

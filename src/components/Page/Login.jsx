@@ -1,26 +1,28 @@
 import { useState, useEffect } from "react";
 import { Link, redirect } from "react-router-dom";
 import { useUserContext } from "../../utils/userContext";
+import { ToastContainer, toast } from "react-toastify";
 import axios from "axios";
 
 import "../../assets/CSS/signin.css";
 
-export default function Signin() {
+export default function Login() {
   const { user, setUser } = useUserContext();
-  const [erreur, setErreur] = useState("");
+  const [error, setError] = useState("");
+  const [sucess, setSucess] = useState();
 
   const changeEmail = (e) => {
-    setErreur("");
+    setError("");
     setUser({ ...user, email: e.target.value });
   };
   const changePassword = (e) => {
-    setErreur("");
+    setError("");
     setUser({ ...user, password: e.target.value });
   };
   const prodUrl = import.meta.env.VITE_BACK_PROD_URL;
   const login = async () => {
     if (!user.password || !user.email) {
-      setErreur(`Pas d'email ou de mot de passe`);
+      setError(`Pas d'email ou de mot de passe`);
       return;
     }
     try {
@@ -38,29 +40,29 @@ export default function Signin() {
       localStorage.setItem("username", user.username);
       localStorage.setItem("userId", user.userId);
       localStorage.setItem("logged", true);
-      return redirect(`/backoffice/user/${user.userId}`);
+
+      setSucess(res.data.sucess);
+      return redirect(`/profile/user/${user.userId}`);
     } catch (err) {
       console.log(err);
-
-      setErreur(err.response.data.error);
+      setError(err.response.data.error);
     }
-    /*  .then((res) => {
-        setUser({
-          username: res.data.user.username,
-          logged: true,
-          userId: res.data.user.id,
-          email: res.data.user.email,
-        });
-
-     
-      }) 
-      .catch((err) => {
-        
-      });*/
   };
 
   return (
     <div className="signin">
+      <ToastContainer
+        position="top-center"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="dark"
+      />
       <div className="signin_container">
         <form action="submit" className="signin_form">
           <div className="form_input_email">
@@ -89,7 +91,9 @@ export default function Signin() {
       <Link to="/signup" className="link_account">
         Vous n'avez pas de compte ?
       </Link>
-      <div className="erreur">{erreur}</div>
+
+      {error && <div className="erreur">{error}</div>}
+      {sucess && <div className="signup_sucess">{sucess}</div>}
     </div>
   );
 }
