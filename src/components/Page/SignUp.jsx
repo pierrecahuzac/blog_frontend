@@ -44,7 +44,7 @@ export default function SignUp() {
     e.preventDefault();
     setUser({ ...user, password_validation: e.target.value });
   };
-  const prodUrl = import.meta.env.VITE_BACK_PROD_URL;
+  const prodUrl = import.meta.env.VITE_PROD_URL;
   const createUser = async () => {
     const errorsArray = [];
     var schema = new passwordValidator();

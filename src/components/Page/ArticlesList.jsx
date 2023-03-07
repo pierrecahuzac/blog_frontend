@@ -13,7 +13,7 @@ export default function ArticlesList() {
   }, []);
   const [loading, setLoading] = useState(true);
   const getArticles = async () => {
-    const prodUrl = import.meta.env.VITE_BACK_PROD_URL;
+    const prodUrl = import.meta.env.VITE_PROD_URL;
     await axios
       .get(`${prodUrl}/api/blog`)
       .then((res) => {

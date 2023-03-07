@@ -19,7 +19,7 @@ export default function Login() {
     setError("");
     setUser({ ...user, password: e.target.value });
   };
-  const prodUrl = import.meta.env.VITE_BACK_PROD_URL;
+  const prodUrl = import.meta.env.VITE_PROD_URL;
   const login = async () => {
     if (!user.password || !user.email) {
       setError(`Pas d'email ou de mot de passe`);

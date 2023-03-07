@@ -23,7 +23,7 @@ export default function Profile() {
 
   const [message, setMessage] = useState("");
 
-  const prodUrl = import.meta.env.VITE_BACK_PROD_URL;
+  const prodUrl = import.meta.env.VITE_PROD_URL;
 
   useEffect(() => {
     getMyPosts();

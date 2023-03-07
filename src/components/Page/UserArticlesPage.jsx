@@ -7,7 +7,7 @@ import Loading from "../Loading";
 import "../../assets/CSS/articlesList.scss";
 
 export default function UserArticlesPage({ userExist }) {
-  const prodUrl = import.meta.env.VITE_BACK_PROD_URL;
+  const prodUrl = import.meta.env.VITE_PROD_URL;
   const [loading, setLoading] = useState(true);
   const [postsArray, setPostsArray] = useState([]);
   const { id } = useParams();

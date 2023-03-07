@@ -24,7 +24,6 @@ import "./assets/CSS/App.scss";
 export default function App() {
   const { isDarkMode, setIsDarkMode } = useGlobalContext();
   const { user, setUser } = useUserContext();
-  const [email, setEmail] = useState();
 
   useEffect(() => {
     /*  const emailToGet = localStorage.getItem("email", JSON.stringify(email)); 
@@ -53,7 +52,7 @@ export default function App() {
 
           <Route path="*" element={<Error />} />
         </Routes>
-      </div>{" "}
+      </div>
     </BrowserRouter>
   );
 }
