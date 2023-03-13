@@ -46,7 +46,7 @@ export default function ArticlesList() {
             user={article.user}
             articleId
             key={article.id}
-            username={article.author.username}
+            /*  username={article.author.username} */
           />
         ))}
     </div>
