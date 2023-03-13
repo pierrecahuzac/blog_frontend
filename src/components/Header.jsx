@@ -5,12 +5,12 @@ import { NavLink, Link } from "react-router-dom";
 import { useState } from "react";
 import { useUserContext } from "../utils/userContext";
 import { useGlobalContext } from "../utils/globalContext";
-import { ToastContainer, toast } from "react-toastify";
+
 import { successToast, errorToast } from "./Toast";
 import moon from "../assets/png/moon.png";
 import sun from "../assets/png/sun.png";
 import logo from "../assets/svg/blog-writing-svgrepo-com.svg";
-import "react-toastify/dist/ReactToastify.css";
+
 import "../assets/CSS/header.scss";
 
 export default function Header() {
@@ -39,18 +39,6 @@ export default function Header() {
   };
   return (
     <header className={isDarkMode ? "header--dark" : "header"}>
-      <ToastContainer
-        position="top-center"
-        autoClose={5000}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-        theme="light"
-      />
       <nav className="header_container">
         <div className="header_logo_container">
           <Link to="/">
@@ -63,7 +51,7 @@ export default function Header() {
             <li className="header_link">
               <NavLink to="/">ACCUEIL</NavLink>
             </li>
-            <li className="header_link_input">
+            {/*    <li className="header_link_input">
               <input
                 type="text"
                 value={inputValue}
@@ -77,22 +65,22 @@ export default function Header() {
                     RECHERCHER
                   </button>
                 )}
-              </Link>
-            </li>
+              </Link> 
+            </li>*/}
 
             {user.logged ? (
               <div className="header_link_connection">
-                <li className="header_link">
+                <div className="header_link">
                   <NavLink
                     to={`/profile/user/${user.userId}`}
                     onClick={closeMenu}
                   >
                     {user.username.toUpperCase()}
                   </NavLink>
-                </li>
-                <li className="header_link_signout" onClick={signout}>
+                </div>
+                <div className="header_link_signout" onClick={signout}>
                   SE DECONNECTER
-                </li>
+                </div>
               </div>
             ) : (
               <div className="header_links_connection">

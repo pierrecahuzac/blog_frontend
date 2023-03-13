@@ -122,7 +122,7 @@ export default function Profile() {
               content={post.content}
               createdAt={post.createdAt}
               postId
-              key={post.id}
+              key={post.id} 
             />
             <button className="btn_delete_post" onClick={deletePost}>
               Supprimer ce post

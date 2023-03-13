@@ -33,7 +33,7 @@
     height: 40px;
   }
   &_logo_container {
-    width: 200px;
+    width: 100px;
     height: 40px;
   }
   &_logo {
@@ -55,7 +55,7 @@
     background-color: #242628;
     z-index: 2000;
   }
-  &_link_connection {
+  &_links_connection {
     display: flex;
     &_mobile {
       display: flex;
@@ -189,19 +189,22 @@
       &_signout {
         display: flex;
         font-size: 20px;
-        margin-left: 100px;
+        margin-left: 30px;
       }
       &_signout:hover {
         text-decoration: underline;
         cursor: pointer;
       }
+      &_connection {
+        display: flex;
+      }
     }
     &_links_connection {
       display: flex;
       flex-direction: row !important;
-
       justify-content: space-between;
     }
+
     &_btn_dark {
       width: 50px;
       height: 40px;
@@ -210,5 +213,8 @@
       border: none;
       padding: 0 5px;
     }
+  }
+  .header_link:last-child {
+    margin-left: 20px;
   }
 }

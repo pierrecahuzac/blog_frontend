@@ -33,15 +33,17 @@ export default function Post({
         <header className="post_header">
           <h2 className="post_header_title">{title}</h2>
         </header>
-        <body className="post_body">
+        <main className="post_body">
           <p className="post_content">{content}</p>
-        </body>
+        </main>
 
         <footer className="post_footer">
           <p className="post_date">{createdAt}</p>
         </footer>
       </Link>
-      <p className="post_createdTime">{username}</p>
+      <Link to={`/blog/user/${username}`}>
+        <p className="post_createdTime">{username}</p>
+      </Link>
     </article>
   );
 }

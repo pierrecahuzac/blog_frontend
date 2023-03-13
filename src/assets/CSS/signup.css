@@ -46,7 +46,6 @@ input:focus {
 .signup_message,
 .signup_erreur {
   font-size: 20px;
-  font-family: "Montserrat", sans-serif;
 }
 .signup_message {
   margin-top: 50px;

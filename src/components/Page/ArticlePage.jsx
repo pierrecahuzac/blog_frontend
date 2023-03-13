@@ -46,9 +46,13 @@ export default function ArticlePage() {
           )}
         </div>
         <p className="article_content">{article.content}</p>
-        <Link to={`/blog/user/${article.authorId}`}>
-          <div className="article_user">{article.authorId}</div>
-        </Link>
+        {/* {article.author.username ? (
+          <Link to={`/blog/user/${article.author.username}`}>
+            <div className="article_user">{article.author.username}</div>
+          </Link>
+        ) : (
+          ""
+        )} */}
       </div>
     </div>
   );

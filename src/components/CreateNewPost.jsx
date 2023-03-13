@@ -49,8 +49,8 @@ export default function CreateNewPost({
       errorToast(`Contenu de l'article vide`);
       return;
     }
-    await axios
-      .post(`${prodUrl}/api/user/createNewPost`, {
+    try {
+      const response = await axios.post(`${prodUrl}/api/user/createNewPost`, {
         newPostTitle,
         newPostContent,
         newPostURL,
@@ -58,12 +58,11 @@ export default function CreateNewPost({
         userID: user.userID,
         createdBy: user.username,
         username: user.username,
-      })
-      .then((res) => {
-        successToast("Post crée avec succès : ", res);
-        setCreateNewPostModalIsOpen(false);
-      })
-      .catch((err) => {});
+      });
+      successToast("Post crée avec succès : ", response);
+      setCreateNewPostModalIsOpen(false);
+      return;
+    } catch (err) {}
   };
 
   return (

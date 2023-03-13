@@ -3,7 +3,7 @@ import emailValidator from "email-validator";
 import passwordValidator from "password-validator";
 import { useUserContext } from "../../utils/userContext";
 import { AiFillEyeInvisible } from "react-icons/ai";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { AiFillEye } from "react-icons/ai";
 import axios from "axios";
 
@@ -19,32 +19,33 @@ export default function SignUp() {
   const [userCreated, setUserCreated] = useState({});
   const [error, setError] = useState();
   const [sucess, setSucess] = useState();
-
+  const navigate = useNavigate();
   const handlePasswordVisibility = () => {
     setPasswordReveal(!passwordReveal);
   };
   const changeEmail = (e) => {
     setError("");
-    e.preventDefault();
+
     setUser({ ...user, email: e.target.value });
   };
   const changeDisplayName = (e) => {
     setError("");
-    e.preventDefault();
+
     setDisplayName(e.target.value);
     setUser({ ...user, username: e.target.value });
   };
   const changePassword = (e) => {
     setError("");
-    e.preventDefault();
+
     setUser({ ...user, password: e.target.value });
   };
   const changePasswordValidation = (e) => {
     setError("");
-    e.preventDefault();
+
     setUser({ ...user, password_validation: e.target.value });
   };
   const prodUrl = import.meta.env.VITE_PROD_URL;
+
   const createUser = async () => {
     const errorsArray = [];
     var schema = new passwordValidator();
@@ -96,20 +97,19 @@ export default function SignUp() {
       setError(errorsArray);
       return;
     }
-    await axios
-      .post(`${prodUrl}/api/user/create_user`, {
+    try {
+      const response = await axios.post(`${prodUrl}/api/user/create_user`, {
         email: user.email,
         password: user.password,
         password_validation: user.password_validation,
         username: user.username,
-      })
-      .then((res) => {
-        setUserCreated(res.data);
-        setSucess(res.data.sucess);
-      })
-      .catch((err) => {
-        setError(err.response.data.error);
       });
+      setUserCreated(response.data);
+      navigate(`/profile/user/${user.userId}`);
+      setSucess(response.data.sucess);
+    } catch (err) {
+      setError(err.response.data.error);
+    }
   };
   return (
     <div className="signup">

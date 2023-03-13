@@ -1,16 +1,16 @@
 import { useState, useEffect } from "react";
-import { Link, redirect } from "react-router-dom";
+import { Link, redirect, useNavigate } from "react-router-dom";
 import { useUserContext } from "../../utils/userContext";
-import { ToastContainer, toast } from "react-toastify";
+import { ToastContainer } from "react-toastify";
 import axios from "axios";
 
 import "../../assets/CSS/signin.css";
-
+import "react-toastify/dist/ReactToastify.css";
 export default function Login() {
   const { user, setUser } = useUserContext();
   const [error, setError] = useState("");
   const [sucess, setSucess] = useState();
-
+  const navigate = useNavigate();
   const changeEmail = (e) => {
     setError("");
     setUser({ ...user, email: e.target.value });
@@ -40,20 +40,20 @@ export default function Login() {
       localStorage.setItem("username", user.username);
       localStorage.setItem("userId", user.userId);
       localStorage.setItem("logged", true);
-
       setSucess(res.data.sucess);
-      return redirect(`/profile/user/${user.userId}`);
+      navigate(`/profile/user/${user.userId}`);
     } catch (err) {
       console.log(err);
       setError(err.response.data.error);
+      return;
     }
   };
 
   return (
     <div className="signin">
       <ToastContainer
-        position="top-center"
-        autoClose={5000}
+        position="bottom-right"
+        autoClose={1000}
         hideProgressBar={false}
         newestOnTop={false}
         closeOnClick
@@ -61,7 +61,7 @@ export default function Login() {
         pauseOnFocusLoss
         draggable
         pauseOnHover
-        theme="dark"
+        theme="light"
       />
       <div className="signin_container">
         <form action="submit" className="signin_form">

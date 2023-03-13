@@ -10,19 +10,21 @@ export default function ArticlesList() {
   const [articlesList, setArticlesList] = useState([]);
   useEffect(() => {
     getArticles();
+    console.log(articlesList);
   }, []);
   const [loading, setLoading] = useState(true);
   const getArticles = async () => {
     const prodUrl = import.meta.env.VITE_PROD_URL;
-    await axios
-      .get(`${prodUrl}/api/blog`)
-      .then((res) => {
-        setArticlesList(res.data.posts);
-        setLoading(false);
-      })
-      .catch((err) => {
-        console.error(err);
-      });
+    try {
+      const response = await axios.get(`${prodUrl}/api/blog`);
+      console.log(response.data.posts);
+      setArticlesList(response.data.posts);
+      setLoading(false);
+      return response.data.posts;
+    } catch (err) {
+      console.log(err);
+      return;
+    }
   };
 
   const getArticleId = (e) => {
@@ -44,6 +46,7 @@ export default function ArticlesList() {
             user={article.user}
             articleId
             key={article.id}
+            username={article.author.username}
           />
         ))}
     </div>
