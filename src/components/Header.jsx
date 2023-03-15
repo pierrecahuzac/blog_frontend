@@ -6,7 +6,7 @@ import { useState } from "react";
 import { useUserContext } from "../utils/userContext";
 import { useGlobalContext } from "../utils/globalContext";
 
-import { successToast, errorToast } from "./Toast";
+import { successToast, errorToast } from "../utils/Toast";
 import moon from "../assets/png/moon.png";
 import sun from "../assets/png/sun.png";
 import logo from "../assets/svg/blog-writing-svgrepo-com.svg";
@@ -35,7 +35,6 @@ export default function Header() {
   const signout = () => {
     setUser({ ...user, logged: false });
     successToast("Utilisateur déconnecté avec succès");
-    console.log("je me déco");
   };
   return (
     <header className={isDarkMode ? "header--dark" : "header"}>
@@ -85,6 +84,11 @@ export default function Header() {
             ) : (
               <div className="header_links_connection">
                 <li className="header_link">
+                  <NavLink to="/blog" onClick={closeMenu}>
+                    BLOG
+                  </NavLink>
+                </li>
+                <li className="header_link">
                   <NavLink to="/signup" onClick={closeMenu}>
                     S'INSCRIRE
                   </NavLink>
@@ -124,6 +128,11 @@ export default function Header() {
             <li className="header_link_mobile home">
               <NavLink to="/" onClick={closeMenu}>
                 ACCUEIL
+              </NavLink>
+            </li>
+            <li className="header_link">
+              <NavLink to="/blog" onClick={closeMenu}>
+                BLOG
               </NavLink>
             </li>
             {user.logged ? (

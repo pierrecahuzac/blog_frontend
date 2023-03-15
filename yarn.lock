@@ -9362,6 +9362,11 @@ pkg-types@^1.0.1:
     mlly "^1.1.1"
     pathe "^1.1.0"
 
+pnpm@^7.29.3:
+  version "7.29.3"
+  resolved "https://registry.yarnpkg.com/pnpm/-/pnpm-7.29.3.tgz#700f102ef6d5e57e01093ede3bfe5028d18cc52b"
+  integrity sha512-w4tVG3ZV1txgM2bp9/XMmqSYYO3qdhyMVdU8S0zegVvfB6SxNL+nxRq5t7hhw+yc+GrKegyZuIp9aWPhy6NNMA==
+
 posix-character-classes@^0.1.0:
   version "0.1.1"
   resolved "https://registry.yarnpkg.com/posix-character-classes/-/posix-character-classes-0.1.1.tgz#01eac0fe3b5af71a2a6c02feabb8c1fef7e00eab"

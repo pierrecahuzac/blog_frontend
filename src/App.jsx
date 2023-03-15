@@ -15,6 +15,7 @@ import Header from "./components/Header";
 import SignUp from "./components/Page/SignUp";
 import Login from "./components/Page/Login";
 import Error from "./components/Page/Error.jsx";
+import Homepage from "./components/Page/Homepage.jsx";
 import ArticlePage from "./components/Page/ArticlePage.jsx";
 import UserArticlesPage from "./components/Page/UserArticlesPage.jsx";
 import Profile from "./components/Page/Profile";
@@ -35,7 +36,8 @@ export default function App() {
       <div className={isDarkMode ? "App--dark" : "App"}>
         <Header />
         <Routes>
-          <Route path="/" element={<ArticlesList />} />
+          <Route path="/" element={<Homepage />} />
+          <Route path="/blog" element={<ArticlesList />} />
           <Route path="/blog/:articleId" element={<ArticlePage />} />
           <Route path="/blog/user" element={<Error />} />
           <Route

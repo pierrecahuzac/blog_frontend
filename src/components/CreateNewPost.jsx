@@ -2,7 +2,7 @@ import axios from "axios";
 import validUrl from "valid-url";
 import { useState, useEffect } from "react";
 import { ToastContainer, toast } from "react-toastify";
-import { successToast, errorToast } from "./Toast";
+import { successToast, errorToast } from "../utils/Toast";
 import { useUserContext } from "../utils/userContext";
 
 import AOS from "aos";
