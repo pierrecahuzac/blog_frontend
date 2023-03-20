@@ -6,11 +6,11 @@ import { useParams, Link } from "react-router-dom";
 import Loading from "../Loading";
 import "../../assets/CSS/articlesList.scss";
 
-export default function UserArticlesPage({ userExist }) {
+export default function UserArticlesPage() {
   const prodUrl = import.meta.env.VITE_PROD_URL;
   const [loading, setLoading] = useState(true);
   const [postsArray, setPostsArray] = useState([]);
-  const { id } = useParams();
+  const { username } = useParams();
   const { user, setUser } = useUserContext();
   useEffect(() => {
     setLoading(true);
@@ -18,16 +18,19 @@ export default function UserArticlesPage({ userExist }) {
   }, []);
 
   const getAllPostsFromUser = async () => {
-    await axios
-      .get(`${prodUrl}/api/blog/user/${id}`)
-      .then((res) => {
-        /*   console.log(res.data.postsUser); */
-        setPostsArray(res.data.postsUser);
-        setLoading(false);
-      })
-      .catch((err) => {
-        console.error(err);
+    try {
+      const response = await fetch(`${prodUrl}/api/blog/user/${username}`, {
+        method: "GET",
       });
+
+      const res = await response.json();
+      console.log(res.postsUser);
+      setPostsArray(res.postsUser);
+
+      setLoading(false);
+    } catch (e) {
+      console.error(e);
+    }
   };
 
   const getArticleId = (e) => {
@@ -36,8 +39,8 @@ export default function UserArticlesPage({ userExist }) {
 
   return (
     <div className="articles-list">
-      <Link to={`/blog/${id}`}>
-        <button>back to user posts page</button>
+      <Link to={`/blog`}>
+        <button>Back to posts </button>
       </Link>
       {loading && <Loading />}
       {!loading &&
@@ -52,17 +55,17 @@ export default function UserArticlesPage({ userExist }) {
               <Link to={`/blog/${post.id}`}>
                 <div className="img-container">
                   <img
-                    src={post.url}
-                    alt={post.url}
+                    src={post.picture}
+                    alt={post.picture}
                     className="article-picture"
-                    key={post.url}
+                    key={post.picture}
                   />
                 </div>
                 <h2 className="article-title">{post.title}</h2>
                 <p className="article-content">{post.content}</p>
               </Link>
             </div>
-            <p className="article-createdTime">{post.createdTime}</p>
+            <p className="article-createdTime">{post.createdAt}</p>
           </div>
         ))}
     </div>

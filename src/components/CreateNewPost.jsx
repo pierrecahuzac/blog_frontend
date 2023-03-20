@@ -2,11 +2,14 @@ import axios from "axios";
 import validUrl from "valid-url";
 import { useState, useEffect } from "react";
 import { ToastContainer, toast } from "react-toastify";
+/* import RichTextEditor from "../components/RichTextEditor"; */
 import { successToast, errorToast } from "../utils/Toast";
 import { useUserContext } from "../utils/userContext";
 
 import AOS from "aos";
 import "../assets/CSS/createNewPostModal.scss";
+import "../assets/CSS/reactquill.scss";
+import "react-quill/dist/quill.snow.css";
 import "aos/dist/aos.css";
 import "react-toastify/dist/ReactToastify.css";
 export default function CreateNewPost({
@@ -95,6 +98,11 @@ export default function CreateNewPost({
           value={newPostTitle}
           onChange={onInputTitleChange}
         />
+        {/*   <RichTextEditor
+          className="rich-text-editor_container"
+          value={newPostContent}
+          onChange={onInputContentChange}
+        /> */}
         <input
           type="text"
           placeholder="Contenu de l'article"
@@ -127,4 +135,17 @@ export default function CreateNewPost({
       </button>
     </div>
   );
-}
+} /* 
+import ReactQuill from "react-quill";
+export function RichTextEditor({}) {
+  const [value, setValue] = useState("");
+
+  return (
+    <ReactQuill
+      theme="snow"
+      value={value}
+      onChange={setValue}
+      className="reactquill_container"
+    />
+  );
+} */

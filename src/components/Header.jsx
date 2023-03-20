@@ -84,11 +84,6 @@ export default function Header() {
             ) : (
               <div className="header_links_connection">
                 <li className="header_link">
-                  <NavLink to="/blog" onClick={closeMenu}>
-                    BLOG
-                  </NavLink>
-                </li>
-                <li className="header_link">
                   <NavLink to="/signup" onClick={closeMenu}>
                     S'INSCRIRE
                   </NavLink>
@@ -100,7 +95,11 @@ export default function Header() {
                 </li>
               </div>
             )}
-
+            <li className="header_link">
+              <NavLink to="/blog" onClick={closeMenu}>
+                BLOG
+              </NavLink>
+            </li>
             <li className="header_link">
               <div onClick={changeDarkMode} className="header_btn_dark">
                 {isDarkMode ? (

@@ -1,6 +1,4 @@
 @import "vars";
-@import url("https://fonts.googleapis.com/css2?family=Ubuntu&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Varela+Round&display=swap");
 
 .App {
   width: 100%;
@@ -8,7 +6,6 @@
   box-sizing: border-box;
   background-color: $color-light;
   color: #242628;
-  /* font-family: "Varela Round", sans-serif; */
 
   &--dark {
     background-color: $color-dark;

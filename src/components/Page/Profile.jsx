@@ -5,7 +5,6 @@ import { redirect, useParams } from "react-router-dom";
 import { useUserContext } from "../../utils/userContext";
 import Post from "../Post";
 import CreateNewPost from "../CreateNewPost";
-
 import "../../assets/CSS/profile.scss";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -62,17 +61,21 @@ export default function Profile() {
       .catch((err) => {});
   };
 
-  const deletePost = async (evt) => {
-    const articleId = evt.target.id;
+  const deletePost = async (e) => {
+    const articleId = e.target.dataset.id;
     console.log(articleId);
-    await axios
-      .delete(`${prodUrl}/api/user/${articleId}`, {
-        articleId,
-      })
-      .then((res) => {
-        setMessage(res.data.message);
-      })
-      .catch((err) => {});
+    try {
+      const res = await fetch(`${prodUrl}/api/post/${articleId}`, {
+        method: "DELETE",
+        body: articleId,
+      });
+      console.log(res);
+      setMessage(res.data.message);
+      return;
+    } catch (err) {
+      console.log(err);
+      return;
+    }
   };
 
   return (
@@ -95,6 +98,7 @@ export default function Profile() {
           setCreateNewPostModalIsOpen={setCreateNewPostModalIsOpen}
           user={user}
           setUser={setUser}
+          key={user}
         />
       )}
       <div className="profile_title">
@@ -121,10 +125,14 @@ export default function Profile() {
               picture={post.picture}
               content={post.content}
               createdAt={post.createdAt}
-              postId
-              key={post.id} 
+              value={post.id}
+              key={post.id}
             />
-            <button className="btn_delete_post" onClick={deletePost}>
+            <button
+              className="btn_delete_post"
+              data-id={post.id}
+              onClick={deletePost}
+            >
               Supprimer ce post
             </button>
           </div>
