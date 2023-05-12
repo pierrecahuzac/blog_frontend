@@ -8,7 +8,7 @@ import "../../assets/CSS/articlePage.scss";
 
 export default function ArticlePage() {
   const prodUrl = import.meta.env.VITE_PROD_URL;
-  const localUrl = import.meta.env.VITE_BACK_LOCAL_URL;
+
   let { articleId } = useParams();
   const [article, setArticle] = useState([]);
 
