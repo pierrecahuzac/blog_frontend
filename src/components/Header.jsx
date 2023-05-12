@@ -77,7 +77,7 @@ export default function Header() {
                     {user.username.toUpperCase()}
                   </NavLink>
                 </div>
-                <div className="header_link_signout" onClick={signout}>
+                <div className="header_link signout" onClick={signout}>
                   SE DECONNECTER
                 </div>
               </div>
@@ -117,13 +117,13 @@ export default function Header() {
           }
         >
           <ul className="header_links_mobile">
-            <input
+            {/*   <input
               type="text"
               value={inputValue}
               className="header_input"
               onChange={handleInput}
               placeholder="Utilisateur recherché"
-            />
+            /> */}
             <li className="header_link_mobile home">
               <NavLink to="/" onClick={closeMenu}>
                 ACCUEIL
@@ -144,9 +144,11 @@ export default function Header() {
                     {user.username.toUpperCase()}
                   </NavLink>
                 </li>
-                <li className="header_link_mobile signout" onClick={signout}>
-                  SE DECONNECTER
-                </li>
+                <NavLink to={`/`} onClick={closeMenu}>
+                  <li className="header_link_mobile signout" onClick={signout}>
+                    SE DECONNECTER
+                  </li>
+                </NavLink>
               </div>
             ) : (
               <div className="header_links_connection">

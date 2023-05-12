@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useState, useEffect } from "react";
 import { ToastContainer, toast } from "react-toastify";
-import { redirect, useParams } from "react-router-dom";
+import { redirect, useParams, useNavigate } from "react-router-dom";
 import { useUserContext } from "../../utils/userContext";
 import Post from "../Post";
 import CreateNewPost from "../CreateNewPost";
@@ -15,6 +15,7 @@ export default function Profile() {
       return redirect("/");
     }
   }, []);
+  const navigate = useNavigate();
   const { user, setUser } = useUserContext();
   const [myPosts, setMyPosts] = useState([]);
   const [createNewPostModalIsOpen, setCreateNewPostModalIsOpen] =
@@ -31,14 +32,18 @@ export default function Profile() {
 
   // récupérer les posts de l'user
   const getMyPosts = async () => {
-    await axios
-      .get(`http://localhost:5000/api/blog/user/${user.userId}`)
-      .then((res) => {
-        setMyPosts(res.data.postsUser);
-      })
-      .catch((err) => {
-        console.error(err);
-      });
+    try {
+      const res = await fetch(`${prod_url}/api/blog/user/${user.userId}`);
+      const response = await res.json();
+      if (!response.postsUser.length) {
+        console.log(response.postsUser.length);
+        return;
+      }
+      console.log(response);
+      setMyPosts(response.postsUser);
+    } catch (e) {
+      console.log(e);
+    }
   };
 
   const createNewpost = async () => {
@@ -48,7 +53,7 @@ export default function Profile() {
   const deleteMyAccount = async (e) => {
     e.preventDefault();
     await axios
-      .delete(`http://localhost:5000/api/user/${user.userId}/deleteAccount`, {
+      .delete(`${prod_url}/api/user/${user.userId}/deleteAccount`, {
         email: user.email,
         userId: user.userID,
       })
@@ -56,7 +61,7 @@ export default function Profile() {
         setMessage(res.data.message);
         notify(`Votre compte a été supprimé`);
         setUser(!user.logged);
-        redirect("/");
+        navigate("/");
       })
       .catch((err) => {});
   };
@@ -65,7 +70,7 @@ export default function Profile() {
     const articleId = e.target.dataset.id;
     console.log(articleId);
     try {
-      const res = await fetch(`http://localhost:5000/api/post/${articleId}`, {
+      const res = await fetch(`${prod_url}/api/post/${articleId}`, {
         method: "DELETE",
         body: articleId,
       });

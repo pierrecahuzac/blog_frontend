@@ -53,18 +53,15 @@ export default function CreateNewPost({
       return;
     }
     try {
-      const response = await axios.post(
-        `http://${prodUrl}/api/user/createNewPost`,
-        {
-          newPostTitle,
-          newPostContent,
-          newPostURL,
-          email: user.email,
-          userID: user.userID,
-          createdBy: user.username,
-          username: user.username,
-        }
-      );
+      const response = await axios.post(`${prodUrl}/api/user/createNewPost`, {
+        newPostTitle,
+        newPostContent,
+        newPostURL,
+        email: user.email,
+        userID: user.userID,
+        createdBy: user.username,
+        username: user.username,
+      });
       successToast("Post crée avec succès : ", response);
       setCreateNewPostModalIsOpen(false);
       return;
@@ -128,14 +125,15 @@ export default function CreateNewPost({
           Créer le nouvel article
         </button>
       </form>
-      <button
+      <span
+        className="close-modal"
         onClick={(e) => {
           e.preventDefault();
           setCreateNewPostModalIsOpen(false);
         }}
       >
         X
-      </button>
+      </span>
     </div>
   );
 } /* 

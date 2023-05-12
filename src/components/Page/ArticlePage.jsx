@@ -15,6 +15,14 @@ export default function ArticlePage() {
   useEffect(() => {
     getOneArticle(articleId);
   }, []);
+  // date en fr
+  const date = new Date(article.createdAt);
+
+  const newDate = date.toLocaleString("fr-FR", {
+    month: "long",
+    day: "numeric",
+    year: "numeric",
+  });
 
   const getOneArticle = async () => {
     await axios
@@ -35,7 +43,7 @@ export default function ArticlePage() {
       <div className="article_element">
         <h2 className="article_title">{article.title}</h2>
 
-        <h2 className="article_date">{article.createdAt}</h2>
+        <h2 className="article_date">{newDate}</h2>
         {article.createdAt !== article.updatedAt ? (
           <h2 className="article_date">{article.updatedAt}</h2>
         ) : null}

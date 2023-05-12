@@ -33,14 +33,12 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
-  /* box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px; */
   height: 400px;
   margin-top: 75px;
   .post {
     width: auto;
     max-width: 350px;
     min-height: 375px;
-
     .img-container {
       max-width: 100%;
     }
@@ -49,12 +47,6 @@
 .message {
   font-size: 20px;
   color: green;
-}
-
-.btn_create_new_post:hover {
-  background-color: rgb(7, 56, 7);
-  transition: 0.5s;
-  color: black;
 }
 
 .btn_create_new_post {
@@ -67,19 +59,23 @@
   margin: 20px;
 }
 .btn_create_new_post:hover {
-  background: #44bd32;
+  background-color: rgb(17, 144, 17);
+  transition: 0.5s;
+  color: black;
+  border: solid 1px black;
 }
+
 .btn_delete_post,
 .btn_delete_account {
   background: red;
   color: #f5f6fa;
   width: auto;
   max-width: 320px;
-
   height: 40px;
   border: none;
   border-radius: 5px;
   margin: 20px;
+  padding: 5px;
 }
 .article-delete_article_btn:hover,
 .btn_delete_account:hover {

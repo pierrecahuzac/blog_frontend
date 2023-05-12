@@ -26,14 +26,21 @@ export default function Homepage() {
       <div className="homepage_menu">
         <p className="homepage_links">
           Pour consulter la liste des articles, allez sur le rubrique
-          <Link to="/blog"> BLOG</Link>
+          <Link to="/blog">
+            <span className="home-links">BLOG</span>{" "}
+          </Link>
         </p>
         <p className="homepage_links">
           Pour vous incrire, direction
-          <Link to="/signup"> S'INSCRIRE</Link>
+          <Link to="/signup">
+            <span className="home-links">S'INSCRIRE</span>{" "}
+          </Link>
         </p>
         <p className="homepage_links">
-          Si vous avez déjà un compte, <Link to="/signup"> SE CONNECTER</Link>
+          Si vous avez déjà un compte
+          <Link to="/signup">
+            <span className="home-links">SE CONNECTER</span>
+          </Link>
         </p>
       </div>
     </div>

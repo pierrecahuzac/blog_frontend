@@ -105,6 +105,7 @@ export default function SignUp() {
         username: user.username,
       });
       setUserCreated(response.data);
+      console.log(response.data.user.id);
       navigate(`/profile/user/${user.userId}`);
       setSucess(response.data.sucess);
     } catch (err) {

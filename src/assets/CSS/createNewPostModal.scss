@@ -24,3 +24,46 @@
     width: 500px;
     height: 500px;
 }
+
+.create_new_post__form-btn_submit_new_post {
+    background: #4cd137;
+    color: #f5f6fa;
+    width: 250px;
+    height: 40px;
+    border: none;
+    border-radius: 5px;
+    margin: 20px;
+}
+
+.create_new_post__form-input_img,
+.create_new_post__form-input_title,
+.create_new_post__form-input_content {
+    text-align: center;
+    /* background-color: #f5f6fa; */
+    width: 330px;
+    height: 40px;
+    border-radius: 5px;
+    border: none;
+    font-size: 25px;
+}
+.close-modal {
+    display: flex;
+    position: absolute;
+    justify-content: center;
+    align-items: center;
+    top: 25px;
+    right: 25px;
+    width: 25px;
+    height: 25px;
+    border-radius: 5px;
+    color: #e1e1e1;
+    background-color: red;
+    border: none;
+    cursor: pointer;
+}
+.close-modal:hover {
+    background-color: rgb(255, 255, 255);
+    transition: 0.3s;
+    border: solid 1px black;
+    color: black;
+}

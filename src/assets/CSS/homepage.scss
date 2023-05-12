@@ -23,14 +23,18 @@
         font-family: "Lato", sans-serif;
         margin: 50px 0 50px 0;
     }
-    a:hover {
-        color: grey;
-        transition: 0.3s;
-    }
 }
 h1 {
     font-size: 2em;
 }
-.homepage_links:visited {
+.home-links {
+    margin-left: 5px;
+    color: grey;
+}
+.home-links:visited {
     color: d1d1d1;
+}
+.home-links:hover {
+    transition: 0.3s;
+    text-decoration: underline;
 }

@@ -43,9 +43,9 @@ export default function Post({
           <p className="post_date">{createdAt}</p>
         </footer>
       </Link>
-      <Link to={`/blog/user/${username}`}>
-        <p className="post_author">{username}</p>
-      </Link>
+      {/*   <Link to={`/blog/user/${username}`}> */}
+      <p className="post_author">{username}</p>
+      {/*  </Link> */}
     </article>
   );
 }

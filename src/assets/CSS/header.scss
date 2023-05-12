@@ -186,12 +186,12 @@
       text-align: center;
       justify-content: center;
       color: $color-light !important;
-      &_signout {
+      .signout {
         display: flex;
         font-size: 20px;
         margin-left: 30px;
       }
-      &_signout:hover {
+      .signout:hover {
         text-decoration: underline;
         cursor: pointer;
       }
@@ -223,4 +223,14 @@
 }
 .header a:visted {
   color: #fff;
+}
+.signout {
+  display: flex;
+  font-size: 20px;
+  margin-left: 30px;
+  color: #fff;
+}
+.signout:hover {
+  text-decoration: underline;
+  cursor: pointer;
 }
