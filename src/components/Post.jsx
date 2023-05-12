@@ -12,6 +12,8 @@ export default function Post({
   username,
   articleId,
 }) {
+  /*   const date = createdAt.toDateString();
+  console.log(date); */
   return (
     <article
       className="post"
@@ -42,7 +44,7 @@ export default function Post({
         </footer>
       </Link>
       <Link to={`/blog/user/${username}`}>
-        <p className="post_createdTime">{username}</p>
+        <p className="post_author">{username}</p>
       </Link>
     </article>
   );

@@ -4,14 +4,16 @@
   text-decoration: none;
   list-style: none;
   font-family: "Roboto", sans-serif;
-  /*  font-family: "Lato", sans-serif; */
+  color: #1d1d1d;
   font-size: 20px;
-  text-decoration: none;
+  /*  font-family: "Lato", sans-serif; 
+  
+  text-decoration: none;*/
 }
-a:visited {
+/* a:visited {
   color: #fff;
-}
-html {
+} */
+body {
   width: 100%;
   min-height: 100vh;
 }

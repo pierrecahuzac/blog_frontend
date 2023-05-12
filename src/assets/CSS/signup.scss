@@ -4,7 +4,6 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-
   width: 100%;
   height: calc(100vh - 60px);
   text-align: center;
@@ -15,9 +14,9 @@
 .signup_form {
   display: flex;
   flex-direction: column;
-  width: 500px;
+  width: 80%;
   height: 400px;
-  background-color: #dcdde1;
+  /* background-color: #dcdde1; */
   justify-content: center;
   align-items: center;
   border-radius: 5px;
@@ -88,4 +87,7 @@ input:focus {
 .form_reveal > svg {
   width: 100%;
   height: auto;
+}
+.link_account {
+  color: #1d1d1d;
 }

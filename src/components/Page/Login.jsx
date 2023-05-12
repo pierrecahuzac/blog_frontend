@@ -1,10 +1,10 @@
-import { useState, useEffect } from "react";
-import { Link, redirect, useNavigate } from "react-router-dom";
+import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { useUserContext } from "../../utils/userContext";
 import { ToastContainer } from "react-toastify";
 import axios from "axios";
 
-import "../../assets/CSS/signin.css";
+import "../../assets/CSS/signin.scss";
 import "react-toastify/dist/ReactToastify.css";
 export default function Login() {
   const { user, setUser } = useUserContext();
@@ -20,16 +20,18 @@ export default function Login() {
     setUser({ ...user, password: e.target.value });
   };
   const prodUrl = import.meta.env.VITE_PROD_URL;
+
   const login = async () => {
     if (!user.password || !user.email) {
       setError(`Pas d'email ou de mot de passe`);
       return;
     }
     try {
-      const res = await axios.post(`${prodUrl}/api/user/login`, {
+      const res = await axios.post(`http://localhost:5000/api/user/login`, {
         email: user.email,
         password: user.password,
       });
+      console.log(res);
       setUser({
         username: res.data.user.username,
         logged: true,
@@ -63,6 +65,7 @@ export default function Login() {
         pauseOnHover
         theme="light"
       />
+
       <div className="signin_container">
         <form action="submit" className="signin_form">
           <div className="form_input_email">

@@ -101,13 +101,13 @@ export default function Header() {
               </NavLink>
             </li>
             <li className="header_link">
-              <div onClick={changeDarkMode} className="header_btn_dark">
+              {/*  <div onClick={changeDarkMode} className="header_btn_dark">
                 {isDarkMode ? (
                   <img src={sun} className="header_btn_dark_svg" alt="" />
                 ) : (
                   <img src={moon} className="header_btn_dark_svg" alt="" />
                 )}
-              </div>
+              </div> */}
             </li>
           </ul>
         </div>
@@ -161,7 +161,7 @@ export default function Header() {
                   </NavLink>
                 </li>
                 <li className="header_link">
-                  <button className="header_btn_dark">
+                  {/*  <button className="header_btn_dark">
                     {isDarkMode ? (
                       <img
                         src={sun}
@@ -177,7 +177,7 @@ export default function Header() {
                         alt=""
                       />
                     )}
-                  </button>
+                  </button> */}
                 </li>
               </div>
             )}

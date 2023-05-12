@@ -1,4 +1,4 @@
-import "../assets/CSS/loading.css";
+import "../assets/CSS/loading.scss";
 const Loading = () => {
   return (
     <div className="lds-container">

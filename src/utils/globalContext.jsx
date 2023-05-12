@@ -2,7 +2,7 @@ import { useContext, useState, createContext } from "react";
 const GlobalContext = createContext();
 export const GlobalContextProvider = ({ children }) => {
   const [isLoading, setIsloading] = useState(true);
-  const [isDarkMode, setIsDarkMode] = useState(true);
+  const [isDarkMode, setIsDarkMode] = useState(false);
 
   return (
     <GlobalContext.Provider

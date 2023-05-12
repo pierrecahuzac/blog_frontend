@@ -22,7 +22,7 @@ export default function Profile() {
 
   const [message, setMessage] = useState("");
 
-  const prodUrl = import.meta.env.VITE_PROD_URL;
+  const prod_url = import.meta.env.VITE_PROD_URL;
 
   useEffect(() => {
     getMyPosts();
@@ -32,7 +32,7 @@ export default function Profile() {
   // récupérer les posts de l'user
   const getMyPosts = async () => {
     await axios
-      .get(`${prodUrl}/api/blog/user/${user.userId}`)
+      .get(`http://localhost:5000/api/blog/user/${user.userId}`)
       .then((res) => {
         setMyPosts(res.data.postsUser);
       })
@@ -48,7 +48,7 @@ export default function Profile() {
   const deleteMyAccount = async (e) => {
     e.preventDefault();
     await axios
-      .delete(`${prodUrl}/api/user/${user.userId}/deleteAccount`, {
+      .delete(`http://localhost:5000/api/user/${user.userId}/deleteAccount`, {
         email: user.email,
         userId: user.userID,
       })
@@ -65,7 +65,7 @@ export default function Profile() {
     const articleId = e.target.dataset.id;
     console.log(articleId);
     try {
-      const res = await fetch(`${prodUrl}/api/post/${articleId}`, {
+      const res = await fetch(`http://localhost:5000/api/post/${articleId}`, {
         method: "DELETE",
         body: articleId,
       });

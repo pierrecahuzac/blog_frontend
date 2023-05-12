@@ -7,7 +7,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { AiFillEye } from "react-icons/ai";
 import axios from "axios";
 
-import "../../assets/CSS/signup.css";
+import "../../assets/CSS/signup.scss";
 
 export default function SignUp() {
   const { user, setUser } = useUserContext();

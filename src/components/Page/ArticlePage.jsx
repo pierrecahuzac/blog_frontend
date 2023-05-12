@@ -28,7 +28,7 @@ export default function ArticlePage() {
   return (
     <div className="article_container">
       <span>
-        <Link to="/" className="back_to_articles_list">
+        <Link to="/blog" className="back_to_articles_list">
           <AiOutlineRollback /> Retour à la liste des articles
         </Link>
       </span>

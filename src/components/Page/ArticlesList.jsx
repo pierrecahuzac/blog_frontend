@@ -13,7 +13,7 @@ export default function ArticlesList() {
   const getArticles = async () => {
     const prodUrl = import.meta.env.VITE_PROD_URL;
     try {
-      const response = await fetch(`${prodUrl}/api/blog`, {
+      const response = await fetch(`http://localhost:5000/api/blog`, {
         method: "GET",
       });
       const res = await response.json();
