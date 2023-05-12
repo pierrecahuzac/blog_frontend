@@ -5,7 +5,7 @@ import { UserContextProvider } from "./utils/userContext.jsx";
 import { GlobalContextProvider } from "./utils/globalContext";
 
 import App from "./App";
-import "./assets/CSS/index.css";
+import "./assets/CSS/index.scss";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
