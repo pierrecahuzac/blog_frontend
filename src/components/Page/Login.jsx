@@ -27,11 +27,11 @@ export default function Login() {
       return;
     }
     try {
-      const res = await axios.post(`http://localhost:5000/api/user/login`, {
+      const res = await axios.post(`${prodUrl}/api/user/login`, {
         email: user.email,
         password: user.password,
       });
-      console.log(res);
+      /* console.log(res); */
       setUser({
         username: res.data.user.username,
         logged: true,

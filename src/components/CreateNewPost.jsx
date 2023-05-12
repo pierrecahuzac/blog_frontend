@@ -54,7 +54,7 @@ export default function CreateNewPost({
     }
     try {
       const response = await axios.post(
-        `http://localhost:5000/api/user/createNewPost`,
+        `http://${prodUrl}/api/user/createNewPost`,
         {
           newPostTitle,
           newPostContent,
