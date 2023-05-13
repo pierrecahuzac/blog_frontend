@@ -1,9 +1,8 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useUserContext } from "../../utils/userContext";
-import { ToastContainer } from "react-toastify";
+import { toast } from "react-toastify";
 import axios from "axios";
-
 import "../../assets/CSS/signin.scss";
 import "react-toastify/dist/ReactToastify.css";
 export default function Login() {
@@ -31,7 +30,7 @@ export default function Login() {
         email: user.email,
         password: user.password,
       });
-      /* console.log(res); */
+
       setUser({
         username: res.data.user.username,
         logged: true,
@@ -43,29 +42,18 @@ export default function Login() {
       localStorage.setItem("userId", user.userId);
       localStorage.setItem("logged", true);
       setSucess(res.data.sucess);
+      toast.success("Login ok");
+
       navigate(`/profile/user/${user.userId}`);
     } catch (err) {
-      console.log(err);
       setError(err.response.data.error);
+      toast.success("Erreur");
       return;
     }
   };
 
   return (
     <div className="signin">
-      <ToastContainer
-        position="bottom-right"
-        autoClose={1000}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-        theme="light"
-      />
-
       <div className="signin_container">
         <form action="submit" className="signin_form">
           <div className="form_input_email">

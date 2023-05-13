@@ -1,22 +1,25 @@
-import axios from "axios";
 import { useState, useEffect } from "react";
 import { ToastContainer, toast } from "react-toastify";
-import { redirect, useParams, useNavigate } from "react-router-dom";
+
+import { redirect, useNavigate } from "react-router-dom";
+import axios from "axios";
 import { useUserContext } from "../../utils/userContext";
 import Post from "../Post";
 import CreateNewPost from "../CreateNewPost";
-import "../../assets/CSS/profile.scss";
+import Loading from "../Loading";
 import "react-toastify/dist/ReactToastify.css";
+import "../../assets/CSS/profile.scss";
 
 export default function Profile() {
   useEffect(() => {
     if (!user.logged) {
-      console.log("utilisateur non reconnu, redirection vers l'accueil");
+      toast.error("utilisateur non reconnu, redirection vers l'accueil");
       return redirect("/");
     }
   }, []);
   const navigate = useNavigate();
   const { user, setUser } = useUserContext();
+  const [loading, setLoading] = useState(true);
   const [myPosts, setMyPosts] = useState([]);
   const [createNewPostModalIsOpen, setCreateNewPostModalIsOpen] =
     useState(false);
@@ -28,21 +31,22 @@ export default function Profile() {
   useEffect(() => {
     getMyPosts();
   }, []);
-  const notify = () => toast(`Votre compte a été supprimé`);
 
   // récupérer les posts de l'user
   const getMyPosts = async () => {
     try {
-      const res = await fetch(`${prod_url}/api/blog/user/${user.userId}`);
-      const response = await res.json();
-      if (!response.postsUser.length) {
-        console.log(response.postsUser.length);
-        return;
+      const response = await fetch(`${prod_url}/api/blog/user/${user.userId}`);
+      const data = await response.json();
+      if (!data.postsUser.length) {
+        console.log(data.postsUser.length);
+        setLoading(false);
+        toast.error("Pas de post pour cet utilisateur");
+        return data;
       }
-      console.log(response);
-      setMyPosts(response.postsUser);
-    } catch (e) {
-      console.log(e);
+      setMyPosts(data.postsUser);
+      setLoading(false);
+    } catch (error) {
+      console.log(error);
     }
   };
 
@@ -52,30 +56,36 @@ export default function Profile() {
 
   const deleteMyAccount = async (e) => {
     e.preventDefault();
-    await axios
-      .delete(`${prod_url}/api/user/${user.userId}/deleteAccount`, {
-        email: user.email,
-        userId: user.userID,
-      })
-      .then((res) => {
-        setMessage(res.data.message);
-        notify(`Votre compte a été supprimé`);
-        setUser(!user.logged);
-        navigate("/");
-      })
-      .catch((err) => {});
+    try {
+      const res = await fetch(
+        `${prod_url}/api/user/${user.userId}/deleteAccount`,
+        {
+          method: "DELETE",
+          email: user.email,
+          userId: user.userID,
+        }
+      );
+      const response = await res.json();
+      console.log(response.sucess);
+      toast.success("Utilisateur supprimé");
+      setMessage(response.sucess);
+      navigate("/");
+      setUser("");
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   const deletePost = async (e) => {
+    e.preventDefault();
     const articleId = e.target.dataset.id;
-    console.log(articleId);
     try {
-      const res = await fetch(`${prod_url}/api/post/${articleId}`, {
-        method: "DELETE",
-        body: articleId,
+      const res = await axios.delete(`${prod_url}/api/post/${articleId}`, {
+        id: parseInt(articleId),
       });
       console.log(res);
       setMessage(res.data.message);
+      navigate("/");
       return;
     } catch (err) {
       console.log(err);
@@ -85,18 +95,8 @@ export default function Profile() {
 
   return (
     <div className="profile_container">
-      <ToastContainer
-        position="top-center"
-        autoClose={5000}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-        theme="dark"
-      />
+      {loading && <Loading />}
+
       {createNewPostModalIsOpen && (
         <CreateNewPost
           createNewPostModalIsOpen={createNewPostModalIsOpen}
@@ -123,17 +123,20 @@ export default function Profile() {
       <div className="my_posts">
         {myPosts.map((post) => (
           <div className="post_container">
-            <Post
-              id={post.id}
-              title={post.title}
-              filename={post.filename}
-              picture={post.picture}
-              content={post.content}
-              createdAt={post.createdAt}
-              value={post.id}
-              key={post.id}
-            />
+            {!loading && (
+              <Post
+                key={post.id}
+                id={post.id}
+                title={post.title}
+                filename={post.filename}
+                picture={post.picture}
+                content={post.content}
+                createdAt={post.createdAt}
+                value={post.id}
+              />
+            )}
             <button
+              type="button"
               className="btn_delete_post"
               data-id={post.id}
               onClick={deletePost}

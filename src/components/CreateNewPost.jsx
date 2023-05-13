@@ -1,9 +1,9 @@
 import axios from "axios";
 import validUrl from "valid-url";
 import { useState, useEffect } from "react";
-import { ToastContainer, toast } from "react-toastify";
+
 /* import RichTextEditor from "../components/RichTextEditor"; */
-import { successToast, errorToast } from "../utils/Toast";
+
 import { useUserContext } from "../utils/userContext";
 
 import AOS from "aos";
@@ -62,7 +62,7 @@ export default function CreateNewPost({
         createdBy: user.username,
         username: user.username,
       });
-      successToast("Post crée avec succès : ", response);
+
       setCreateNewPostModalIsOpen(false);
       return;
     } catch (err) {}
@@ -77,7 +77,7 @@ export default function CreateNewPost({
           : "create_new_post__container"
       }
     >
-      <ToastContainer
+      {/*    <ToastContainer
         position="top-center"
         autoClose={5000}
         hideProgressBar={false}
@@ -88,7 +88,7 @@ export default function CreateNewPost({
         draggable
         pauseOnHover
         theme="light"
-      />
+      /> */}
 
       <form action="submit" className="create_new_post__form">
         <input

@@ -34,7 +34,12 @@
     border-radius: 5px;
     margin: 20px;
 }
-
+.create_new_post__form-btn_submit_new_post:hover {
+    background-color: rgb(17, 144, 17);
+    transition: 0.5s;
+    color: black;
+    border: solid 1px black;
+}
 .create_new_post__form-input_img,
 .create_new_post__form-input_title,
 .create_new_post__form-input_content {

@@ -77,19 +77,12 @@
   margin: 20px;
   padding: 5px;
 }
-.article-delete_article_btn:hover,
+.btn_delete_post:hover,
 .btn_delete_account:hover {
-  background: red;
+  background-color: rgb(201, 7, 7);
   color: #dcdde1;
-}
-.btn_delete_account:hover {
-  background-color: red;
+  border: solid 1px black;
+  cursor: pointer;
+  transition: 0.3s;
   color: black;
-  transition: 0.5s;
-}
-.article-info {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
 }

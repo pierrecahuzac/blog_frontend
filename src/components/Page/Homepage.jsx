@@ -21,8 +21,6 @@ export default function Homepage() {
 
   return (
     <div className="homepage">
-      {/*       <h1 className="homepage_title">Bienvenu(e) sur le blog du dev</h1>
-       */}{" "}
       <div className="homepage_menu">
         <p className="homepage_links">
           Pour consulter la liste des articles, allez sur le rubrique
@@ -38,7 +36,7 @@ export default function Homepage() {
         </p>
         <p className="homepage_links">
           Si vous avez déjà un compte
-          <Link to="/signup">
+          <Link to="/signin">
             <span className="home-links">SE CONNECTER</span>
           </Link>
         </p>

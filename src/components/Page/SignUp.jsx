@@ -8,14 +8,11 @@ import { AiFillEye } from "react-icons/ai";
 import axios from "axios";
 
 import "../../assets/CSS/signup.scss";
+import { toast } from "react-toastify";
 
-export default function SignUp() {
+export default function Signup() {
   const { user, setUser } = useUserContext();
   const [passwordReveal, setPasswordReveal] = useState(false);
-  const [email, setEmail] = useState("");
-  const [username, setDisplayName] = useState("");
-  const [password, setPassword] = useState("");
-  const [password_validation, setPasswordValidation] = useState("");
   const [userCreated, setUserCreated] = useState({});
   const [error, setError] = useState();
   const [sucess, setSucess] = useState();
@@ -41,7 +38,6 @@ export default function SignUp() {
   };
   const changePasswordValidation = (e) => {
     setError("");
-
     setUser({ ...user, password_validation: e.target.value });
   };
   const prodUrl = import.meta.env.VITE_PROD_URL;
@@ -108,8 +104,10 @@ export default function SignUp() {
       console.log(response.data.user.id);
       navigate(`/profile/user/${user.userId}`);
       setSucess(response.data.sucess);
+      toast.success(`Compté crée avec succes pour ${user.username}`);
     } catch (err) {
       setError(err.response.data.error);
+      toast.success(`${err.response.data.error}`);
     }
   };
   return (

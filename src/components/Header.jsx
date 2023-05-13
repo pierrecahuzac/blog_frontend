@@ -5,8 +5,9 @@ import { NavLink, Link } from "react-router-dom";
 import { useState } from "react";
 import { useUserContext } from "../utils/userContext";
 import { useGlobalContext } from "../utils/globalContext";
+import { toast } from "react-toastify";
 
-import { successToast, errorToast } from "../utils/Toast";
+/* import { successToast, errorToast } from "../utils/Toast"; */
 import moon from "../assets/png/moon.png";
 import sun from "../assets/png/sun.png";
 import logo from "../assets/svg/blog-writing-svgrepo-com.svg";
@@ -34,7 +35,7 @@ export default function Header() {
   };
   const signout = () => {
     setUser({ ...user, logged: false });
-    successToast("Utilisateur déconnecté avec succès");
+    toast.success("Utilisateur déconnecté");
   };
   return (
     <header className={isDarkMode ? "header--dark" : "header"}>

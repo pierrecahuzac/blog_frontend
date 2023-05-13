@@ -17,9 +17,7 @@ export default function ArticlesList() {
         method: "GET",
       });
       const res = await response.json();
-      console.log(res);
 
-      console.log(res.posts);
       setArticlesList(res.posts);
       setLoading(false);
       return response.data.posts;

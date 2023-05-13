@@ -12,8 +12,14 @@ export default function Post({
   username,
   articleId,
 }) {
-  /*   const date = createdAt.toDateString();
-  console.log(date); */
+  const date = new Date(createdAt);
+
+  const newDate = date.toLocaleString("fr-FR", {
+    month: "long",
+    day: "numeric",
+    year: "numeric",
+  });
+
   return (
     <article
       className="post"
@@ -32,19 +38,21 @@ export default function Post({
             key={picture}
           />
         </div>
-        <header className="post_header">
-          <h2 className="post_header_title">{title}</h2>
-        </header>
-        <main className="post_body">
-          <p className="post_content">{content}</p>
-        </main>
-
-        <footer className="post_footer">
-          <p className="post_date">{createdAt}</p>
-        </footer>
+        <div className="post_info">
+          <header className="post_header">
+            <h2 className="post_header_title">{title}</h2>
+          </header>
+          <main className="post_body">
+            <p className="post_content">{content}</p>
+          </main>
+          <footer className="post_footer">
+            <p className="post_date">{newDate}</p>
+            <p className="post_author">{username}</p>
+          </footer>
+        </div>
       </Link>
       {/*   <Link to={`/blog/user/${username}`}> */}
-      <p className="post_author">{username}</p>
+
       {/*  </Link> */}
     </article>
   );
