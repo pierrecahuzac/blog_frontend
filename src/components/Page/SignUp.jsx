@@ -15,25 +15,23 @@ export default function Signup() {
   const [passwordReveal, setPasswordReveal] = useState(false);
   const [userCreated, setUserCreated] = useState({});
   const [error, setError] = useState();
+  /* const [displayName, setDisplayName] = useSate(""); */
   const [sucess, setSucess] = useState();
+
   const navigate = useNavigate();
   const handlePasswordVisibility = () => {
     setPasswordReveal(!passwordReveal);
   };
   const changeEmail = (e) => {
     setError("");
-
     setUser({ ...user, email: e.target.value });
   };
   const changeDisplayName = (e) => {
     setError("");
-
-    setDisplayName(e.target.value);
     setUser({ ...user, username: e.target.value });
   };
   const changePassword = (e) => {
     setError("");
-
     setUser({ ...user, password: e.target.value });
   };
   const changePasswordValidation = (e) => {
@@ -65,32 +63,44 @@ export default function Signup() {
       .oneOf(["Passw0rd", "Password123", "1234"]); // Blacklist these values
     if (!schema.validate(user.password)) {
       setError(`Mot de passe incorrect`);
+      toast.error(`Mot de passe incorrect`);
       errorsArray.push(`Mot de passe incorrect`);
       return;
     }
     if (!emailValidator.validate(user.email) || !user.email) {
       setError(`L'email n'est pas valide / est vide`);
+      toast.error(`L'email n'est pas valide / est vide`);
       errorsArray.push(`L'email n'est pas valide / est vide`);
       return;
     }
+    if (!user.username) {
+      setError(`Nom d'utilisateur vide`);
+      toast.error(`Nom d'utilisateur vide`);
+      errorsArray.push(`entrer un nom d'utilisateur`);
+      return;
+    }
     if (!user.password) {
-      setError(`entrer un mot de passe`);
-      errorsArray.push(`entrer un mot de passe`);
+      setError(`Entrer un mot de passe`);
+      toast.error(`Entrer un mot de passe`);
+      errorsArray.push(`Entrer un mot de passe`);
       return;
     }
     if (!user.password_validation) {
-      setError(`la validation du mot de passe est vide`);
-      errorsArray.push(`la validation du mot de passe est vide`);
+      setError(`La validation du mot de passe est vide`);
+      toast.error(`La validation du mot de passe est vide`);
+      errorsArray.push(`La validation du mot de passe est vide`);
       return;
     }
     if (user.password_validation !== user.password) {
-      setError(`les mots de passe doivent être identiques`);
-      errorsArray.push(`les mots de passe doivent être identiques`);
+      setError(`Les mots de passe doivent être identiques`);
+      toast.error(`Les mots de passe doivent être identiques`);
+      errorsArray.push(`Les mots de passe doivent être identiques`);
       return;
     }
     if (errorsArray.length) {
       errorsArray.forEach((err) => console.log(err));
       setError(errorsArray);
+
       return;
     }
     try {
@@ -100,14 +110,14 @@ export default function Signup() {
         password_validation: user.password_validation,
         username: user.username,
       });
+
       setUserCreated(response.data);
-      console.log(response.data.user.id);
-      navigate(`/profile/user/${user.userId}`);
+      navigate(`/profile/user/${response.data.user.id}`);
       setSucess(response.data.sucess);
-      toast.success(`Compté crée avec succes pour ${user.username}`);
+      toast.success(`Compté crée avec succès pour ${user.username}`);
     } catch (err) {
       setError(err.response.data.error);
-      toast.success(`${err.response.data.error}`);
+      toast.error(err.response.data.error);
     }
   };
   return (

@@ -11,7 +11,7 @@ import {
 } from "react-router-dom";
 import ArticlesList from "./components/Page/ArticlesList";
 import Header from "./components/Header";
-import SignUp from "./components/Page/Signup";
+import SignUp from "./components/Page/SignUp";
 import Login from "./components/Page/Login";
 import Error from "./components/Page/Error.jsx";
 import Homepage from "./components/Page/Homepage.jsx";
@@ -25,11 +25,7 @@ export default function App() {
   const { isDarkMode, setIsDarkMode } = useGlobalContext();
   const { user, setUser } = useUserContext();
 
-  useEffect(() => {
-    /*  const emailToGet = localStorage.getItem("email", JSON.stringify(email)); 
-    console.log(emailToGet);
-    setEmail(emailToGet);*/
-  }, []);
+  useEffect(() => {}, []);
   return (
     <BrowserRouter>
       <div className={isDarkMode ? "App--dark" : "App"}>
@@ -50,13 +46,12 @@ export default function App() {
             path="/profile/user/:userId"
             element={user.logged ? <Profile /> : <Link to="/" />}
           />
-
           <Route path="*" element={<Error />} />
         </Routes>
       </div>
       <ToastContainer
-        position="top-center"
-        autoClose={5000}
+        position="bottom-right"
+        autoClose={1500}
         hideProgressBar={false}
         newestOnTop={false}
         closeOnClick

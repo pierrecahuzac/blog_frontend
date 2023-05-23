@@ -1,13 +1,14 @@
 import { RxHamburgerMenu, RxCross1 } from "react-icons/rx";
 import { MdLightbulb, MdLightbulbOutline } from "react-icons/md";
 import { FaBloggerB } from "react-icons/fa";
-import { NavLink, Link } from "react-router-dom";
+import { NavLink, Link, Navigate } from "react-router-dom";
 import { useState } from "react";
 import { useUserContext } from "../utils/userContext";
 import { useGlobalContext } from "../utils/globalContext";
 import { toast } from "react-toastify";
+import { accountService } from "../_services/account.service";
+import { useNavigate } from "react-router-dom";
 
-/* import { successToast, errorToast } from "../utils/Toast"; */
 import moon from "../assets/png/moon.png";
 import sun from "../assets/png/sun.png";
 import logo from "../assets/svg/blog-writing-svgrepo-com.svg";
@@ -15,6 +16,7 @@ import logo from "../assets/svg/blog-writing-svgrepo-com.svg";
 import "../assets/CSS/header.scss";
 
 export default function Header() {
+  const navigate = useNavigate();
   const { user, setUser } = useUserContext();
   const { isDarkMode, setIsDarkMode } = useGlobalContext();
   const [menuIsOpen, setMenuIsOpen] = useState(false);
@@ -34,8 +36,15 @@ export default function Header() {
     setIsDarkMode(!isDarkMode);
   };
   const signout = () => {
+    accountService.logout();
+    localStorage.removeItem("email");
+    localStorage.removeItem("userId");
+    localStorage.removeItem("username");
+    localStorage.removeItem("id");
+    localStorage.removeItem("logged");
     setUser({ ...user, logged: false });
     toast.success("Utilisateur déconnecté");
+    navigate("/");
   };
   return (
     <header className={isDarkMode ? "header--dark" : "header"}>
@@ -48,9 +57,9 @@ export default function Header() {
 
         <div className="header_menu_desktop">
           <ul className="header_links">
-            <li className="header_link">
+            {/* <li className="header_link">
               <NavLink to="/">ACCUEIL</NavLink>
-            </li>
+            </li> */}
             {/*    <li className="header_link_input">
               <input
                 type="text"
@@ -125,11 +134,11 @@ export default function Header() {
               onChange={handleInput}
               placeholder="Utilisateur recherché"
             /> */}
-            <li className="header_link_mobile home">
+            {/*   <li className="header_link_mobile home">
               <NavLink to="/" onClick={closeMenu}>
                 ACCUEIL
               </NavLink>
-            </li>
+            </li> */}
             <li className="header_link">
               <NavLink to="/blog" onClick={closeMenu}>
                 BLOG

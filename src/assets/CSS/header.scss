@@ -39,6 +39,7 @@
   &_logo {
     max-width: 100%;
     height: 40px;
+    filter: brightness(0) invert(1);
   }
   &_menu_desktop {
     display: none;
@@ -139,14 +140,18 @@
   position: absolute;
   top: 20px;
   right: 20px;
-  color: grey;
+
+  filter: brightness(0) invert(1);
 }
 .header_btn_dark_svg {
   width: 40px;
   height: 40px;
   color: white;
+  filter: brightness(0) invert(1);
 }
-
+.header_burgermenu_button_close {
+  filter: brightness(0) invert(1);
+}
 @media screen and (min-width: 1000px) {
   .header_burgermenu_button {
     display: none;
@@ -158,7 +163,8 @@
     width: 100%;
     height: 60px;
     padding: 10px 20px;
-    font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+    /*     font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+ */
     &_container {
       display: flex;
       width: 100%;
@@ -218,11 +224,14 @@
     margin-left: 20px;
   }
 }
-.header a {
+
+.header a:visited {
   color: #fff;
 }
-.header a:visted {
+.header a:hover {
   color: #fff;
+  font-weight: bolder;
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
 }
 .signout {
   display: flex;

@@ -1,8 +1,23 @@
 import { useEffect } from "react";
-import { Link } from "react-router-dom";
+
+import { Link, useNavigate } from "react-router-dom";
+import { accountService } from "../../_services/account.service";
+import { userService } from "../../_services/user.service";
+
 import "../../assets/CSS/homepage.scss";
-export default function Homepage() {
+import Axios from "../../_services/caller.service";
+const Homepage = () => {
   useEffect(() => {
+    const bearer = localStorage.getItem("token");
+
+    /* const islogged = accountService.isLogged();
+    if (islogged) {
+      userService.getAllUsers();
+    }
+    console.log(islogged);
+ */
+    const getItem = !!localStorage.getItem("token");
+    /*   userService.getAllUsers(); */
     wakeupServer();
   }, []);
 
@@ -10,8 +25,8 @@ export default function Homepage() {
     const prodUrl = import.meta.env.VITE_PROD_URL;
     try {
       const response = await fetch(`${prodUrl}`);
+
       if (!response.ok) {
-        console.log(response.ok);
         return;
       }
     } catch (e) {
@@ -43,4 +58,5 @@ export default function Homepage() {
       </div>
     </div>
   );
-}
+};
+export default Homepage;

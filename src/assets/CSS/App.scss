@@ -1,6 +1,8 @@
 @import "vars";
+@import url("https://fonts.googleapis.com/css2?family=Mulish:wght@300&display=swap");
 
 .App {
+  font-family: Mulish, sans-serif;
   width: 100%;
   min-height: 100vh;
   box-sizing: border-box;

@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 
-import { redirect, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useUserContext } from "../../utils/userContext";
 import Post from "../Post";
@@ -11,16 +11,18 @@ import "react-toastify/dist/ReactToastify.css";
 import "../../assets/CSS/profile.scss";
 
 export default function Profile() {
+  const [myPosts, setMyPosts] = useState([]);
   useEffect(() => {
+    getMyPosts();
     if (!user.logged) {
       toast.error("utilisateur non reconnu, redirection vers l'accueil");
-      return redirect("/");
+      return navigate("/");
     }
-  }, []);
+  }, [myPosts]);
   const navigate = useNavigate();
   const { user, setUser } = useUserContext();
-  const [loading, setLoading] = useState(true);
-  const [myPosts, setMyPosts] = useState([]);
+  const [loading, setLoading] = useState(false);
+
   const [createNewPostModalIsOpen, setCreateNewPostModalIsOpen] =
     useState(false);
 
@@ -28,19 +30,13 @@ export default function Profile() {
 
   const prod_url = import.meta.env.VITE_PROD_URL;
 
-  useEffect(() => {
-    getMyPosts();
-  }, []);
-
   // récupérer les posts de l'user
   const getMyPosts = async () => {
     try {
       const response = await fetch(`${prod_url}/api/blog/user/${user.userId}`);
       const data = await response.json();
       if (!data.postsUser.length) {
-        console.log(data.postsUser.length);
-        setLoading(false);
-        toast.error("Pas de post pour cet utilisateur");
+        toast.error("Cet utilisateur n'as pas encore d'article");
         return data;
       }
       setMyPosts(data.postsUser);
@@ -66,7 +62,7 @@ export default function Profile() {
         }
       );
       const response = await res.json();
-      console.log(response.sucess);
+      console.log(response.success);
       toast.success("Utilisateur supprimé");
       setMessage(response.sucess);
       navigate("/");
@@ -81,11 +77,12 @@ export default function Profile() {
     const articleId = e.target.dataset.id;
     try {
       const res = await axios.delete(`${prod_url}/api/post/${articleId}`, {
-        id: parseInt(articleId),
+        id: articleId,
       });
-      console.log(res);
+      const response = await res.json();
+      console.log(response);
       setMessage(res.data.message);
-      navigate("/");
+
       return;
     } catch (err) {
       console.log(err);
@@ -108,6 +105,7 @@ export default function Profile() {
       )}
       <div className="profile_title">
         <h2>Mon compte</h2>
+        <h3>{user.email}</h3>
       </div>
       <div className="btn_container">
         <button onClick={deleteMyAccount} className="btn_delete_account">

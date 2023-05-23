@@ -8,11 +8,11 @@ import App from "./App";
 import "./assets/CSS/index.scss";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
-  <React.StrictMode>
-    <UserContextProvider>
-      <GlobalContextProvider>
-        <App />
-      </GlobalContextProvider>
-    </UserContextProvider>
-  </React.StrictMode>
+  /*   <React.StrictMode> */
+  <UserContextProvider>
+    <GlobalContextProvider>
+      <App />
+    </GlobalContextProvider>
+  </UserContextProvider>
+  /* </React.StrictMode> */
 );
