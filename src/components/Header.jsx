@@ -7,10 +7,9 @@ import { useUserContext } from "../utils/userContext";
 import { useGlobalContext } from "../utils/globalContext";
 import { toast } from "react-toastify";
 import { accountService } from "../_services/account.service";
-import { useNavigate } from "react-router-dom";
 
-import moon from "../assets/png/moon.png";
-import sun from "../assets/png/sun.png";
+/* import moon from "../assets/png/moon.png";
+import sun from "../assets/png/sun.png"; */
 import logo from "../assets/svg/blog-writing-svgrepo-com.svg";
 
 import "../assets/CSS/header.scss";
