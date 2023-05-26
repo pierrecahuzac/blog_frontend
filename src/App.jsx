@@ -55,8 +55,8 @@ export default function App() {
         </Routes>
       </div>
       <ToastContainer
-        position="top-center"
-        autoClose={5000}
+        position="bottom-right"
+        autoClose={1200}
         hideProgressBar={false}
         newestOnTop={false}
         closeOnClick

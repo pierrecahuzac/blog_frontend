@@ -1,7 +1,7 @@
 import { RxHamburgerMenu, RxCross1 } from "react-icons/rx";
 import { MdLightbulb, MdLightbulbOutline } from "react-icons/md";
 import { FaBloggerB } from "react-icons/fa";
-import { NavLink, Link } from "react-router-dom";
+import { NavLink, Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { useUserContext } from "../utils/userContext";
 import { useGlobalContext } from "../utils/globalContext";
@@ -19,6 +19,7 @@ export default function Header() {
   const { isDarkMode, setIsDarkMode } = useGlobalContext();
   const [menuIsOpen, setMenuIsOpen] = useState(false);
   const [inputValue, setInputValue] = useState("");
+  const navigate = useNavigate();
   const closeMenu = () => {
     setMenuIsOpen(false);
   };
@@ -36,6 +37,7 @@ export default function Header() {
   const signout = () => {
     setUser({ ...user, logged: false });
     toast.success("Utilisateur déconnecté");
+    navigate("/signin");
   };
   return (
     <header className={isDarkMode ? "header--dark" : "header"}>

@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useUserContext } from "../../utils/userContext";
+import emailValidator from "email-validator";
 import { toast } from "react-toastify";
 import axios from "axios";
 import "../../assets/CSS/signin.scss";
@@ -25,17 +26,21 @@ export default function Login() {
       setError(`Pas d'email ou de mot de passe`);
       return;
     }
+    if (!emailValidator.validate(user.email)) {
+      setError(`L'email entré n'est pas valide`);
+      return;
+    }
+
     try {
       const res = await axios.post(`${prodUrl}/api/user/login`, {
         email: user.email,
         password: user.password,
       });
-
       setUser({
-        username: res.data.user.username,
+        username: res.data.username,
         logged: true,
-        userId: res.data.user.id,
-        email: res.data.user.email,
+        userId: res.data.userId,
+        email: res.data.email,
       });
       localStorage.setItem("email", user.email);
       localStorage.setItem("username", user.username);
@@ -43,10 +48,10 @@ export default function Login() {
       localStorage.setItem("logged", true);
       setSucess(res.data.sucess);
       toast.success("Login ok");
-
-      navigate(`/profile/user/${user.userId}`);
+      navigate(`/profile/user/` + res.data.userId);
     } catch (err) {
-      setError(err.response.data.error);
+      console.log(err);
+      /*  setError(err.response.data.error); */
       toast.success("Erreur");
       return;
     }
