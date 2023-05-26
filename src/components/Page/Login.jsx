@@ -33,32 +33,35 @@ export default function Login() {
       return;
     }
     try {
-      const res = await axios.post(`${prodUrl}/api/user/login`, {
+      const user = await axios.post(`${prodUrl}/api/user/login`, {
         email: user.email,
         password: user.password,
       });
-      console.log(res);
-      setUser({
+      if (res.response.status === 401) {
+        console.trace("Utilsiateur introuvable");
+        return;
+      }
+
+      /* setUser({
         username: res.data.username,
         logged: true,
         userId: res.data.userId,
         email: res.data.email,
         access_token: res.data.access_token,
       });
-      const token = accountService.getToken();
-      console.log(token);
-      localStorage.setItem("access_token", res.data.access_token);
+      // ou res.user...
       localStorage.setItem("email", res.data.email);
       localStorage.setItem("username", res.data.username);
-      localStorage.setItem("id", res.data.userId);
-      localStorage.setItem("logged", res.data.logged);
-      setSuccess(res.data.success);
+      localStorage.setItem("access_token", res.data.access_token);
+      localStorage.setItem("userId", res.data.userId);
+      localStorage.setItem("logged", true);
+      setSuccess(res.data.sucess);
       toast.success("Login ok");
-      navigate(`/profile/user/${res.data.userId}`);
+      navigate(`/profile/user/` + res.data.userId); */
     } catch (err) {
-      console.log(err);
-      setError(err.response);
-      toast.error(err.response);
+      console.trace({ err });
+      /* setError(err); */
+      toast.error("Erreur");
       return;
     }
   };
