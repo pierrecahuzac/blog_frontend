@@ -43,22 +43,24 @@ export default function Login() {
         email: user.email,
         password: user.password,
       });
+      console.log(res);
       setUser({
-        username: res.data.username,
+        username: res.data.user.username,
         logged: true,
-        userId: res.data.userId,
-        email: res.data.email,
+        userId: res.data.user.userId,
+        email: res.data.user.email,
       });
       const token = accountService.getToken();
       console.log(token);
       localStorage.setItem("access_token", res.data.access_token);
-      localStorage.setItem("email", res.data.email);
-      localStorage.setItem("username", res.data.username);
-      localStorage.setItem("id", res.data.userId);
+      localStorage.setItem("email", res.data.res.data.email);
+      localStorage.setItem("username", res.data.res.data.username);
+      localStorage.setItem("id", res.data.res.data.userId);
       localStorage.setItem("logged", res.data.logged);
+      console.log(user);
       setSuccess(res.data.success);
       toast.success("Login ok");
-      navigate(`/profile/user/` + res.data.userId);
+      navigate(`/profile/user/` + res.data.user.userId);
     } catch (err) {
       console.log(err);
       /*  setError(err.response.data.error); */

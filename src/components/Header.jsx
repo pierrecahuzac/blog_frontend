@@ -21,6 +21,7 @@ export default function Header() {
   const [menuIsOpen, setMenuIsOpen] = useState(false);
   const [inputValue, setInputValue] = useState("");
   const navigate = useNavigate();
+  console.log(user);
   const closeMenu = () => {
     setMenuIsOpen(false);
   };
