@@ -36,7 +36,8 @@ export default function Profile() {
       const response = await fetch(`${prod_url}/api/blog/user/${user.userId}`);
       const data = await response.json();
       if (!data.postsUser.length) {
-        toast.error("Cet utilisateur n'as pas encore d'article");
+        setLoading(false);
+        toast.error("Pas de post pour cet utilisateur");
         return data;
       }
       setMyPosts(data.postsUser);

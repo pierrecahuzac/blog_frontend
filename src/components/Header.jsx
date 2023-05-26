@@ -1,7 +1,7 @@
 import { RxHamburgerMenu, RxCross1 } from "react-icons/rx";
 import { MdLightbulb, MdLightbulbOutline } from "react-icons/md";
 import { FaBloggerB } from "react-icons/fa";
-import { NavLink, Link, Navigate } from "react-router-dom";
+import { NavLink, Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { useUserContext } from "../utils/userContext";
 import { useGlobalContext } from "../utils/globalContext";
@@ -16,11 +16,11 @@ import logo from "../assets/svg/blog-writing-svgrepo-com.svg";
 import "../assets/CSS/header.scss";
 
 export default function Header() {
-  const navigate = useNavigate();
   const { user, setUser } = useUserContext();
   const { isDarkMode, setIsDarkMode } = useGlobalContext();
   const [menuIsOpen, setMenuIsOpen] = useState(false);
   const [inputValue, setInputValue] = useState("");
+  const navigate = useNavigate();
   const closeMenu = () => {
     setMenuIsOpen(false);
   };
@@ -44,7 +44,7 @@ export default function Header() {
     localStorage.removeItem("logged");
     setUser({ ...user, logged: false });
     toast.success("Utilisateur déconnecté");
-    navigate("/");
+    navigate("/signin");
   };
   return (
     <header className={isDarkMode ? "header--dark" : "header"}>
@@ -57,26 +57,6 @@ export default function Header() {
 
         <div className="header_menu_desktop">
           <ul className="header_links">
-            {/* <li className="header_link">
-              <NavLink to="/">ACCUEIL</NavLink>
-            </li> */}
-            {/*    <li className="header_link_input">
-              <input
-                type="text"
-                value={inputValue}
-                className="header_input"
-                onChange={handleInput}
-                placeholder="Utilisateur recherché"
-              />
-              <Link to={`/blog/user/${inputValue}`}>
-                {inputValue && (
-                  <button action="submit" className="btn_search">
-                    RECHERCHER
-                  </button>
-                )}
-              </Link> 
-            </li>*/}
-
             {user.logged ? (
               <div className="header_link_connection">
                 <div className="header_link">

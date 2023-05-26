@@ -2,6 +2,7 @@ import { useState } from "react";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import { useUserContext } from "../../utils/userContext";
+import emailValidator from "email-validator";
 import { toast } from "react-toastify";
 
 import { accountService } from "../../_services/account.service";
@@ -32,18 +33,21 @@ export default function Login() {
       setError(`Pas d'email ou de mot de passe`);
       return;
     }
+    if (!emailValidator.validate(user.email)) {
+      setError(`L'email entré n'est pas valide`);
+      return;
+    }
+
     try {
       const res = await axios.post(`${prodUrl}/api/user/login`, {
         email: user.email,
         password: user.password,
       });
-      console.log(res);
       setUser({
         username: res.data.username,
         logged: true,
         userId: res.data.userId,
         email: res.data.email,
-        access_token: res.data.access_token,
       });
       const token = accountService.getToken();
       console.log(token);
@@ -54,11 +58,11 @@ export default function Login() {
       localStorage.setItem("logged", res.data.logged);
       setSuccess(res.data.success);
       toast.success("Login ok");
-      navigate(`/profile/user/${res.data.userId}`);
+      navigate(`/profile/user/` + res.data.userId);
     } catch (err) {
       console.log(err);
-      setError(err.response);
-      toast.error(err.response);
+      /*  setError(err.response.data.error); */
+      toast.success("Erreur");
       return;
     }
   };
