@@ -38,11 +38,11 @@ export default function Login() {
         password: user.password,
       });
       if (res.response.status === 401) {
-        console.trace("Utilsiateur introuvable");
+        console.trace("Utilasiteur introuvable");
         return;
       }
 
-      /* setUser({
+      setUser({
         username: res.data.username,
         logged: true,
         userId: res.data.userId,
@@ -57,10 +57,10 @@ export default function Login() {
       localStorage.setItem("logged", true);
       setSuccess(res.data.sucess);
       toast.success("Login ok");
-      navigate(`/profile/user/` + res.data.userId); */
+      navigate(`/profile/user/` + res.data.userId);
     } catch (err) {
-      console.trace({ err });
-      /* setError(err); */
+      console.trace(err);
+      setError(err);
       toast.error("Erreur");
       return;
     }
