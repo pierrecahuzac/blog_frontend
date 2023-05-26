@@ -52,11 +52,11 @@ export default function Login() {
       });
       const token = accountService.getToken();
       console.log(token);
-      localStorage.setItem("access_token", res.data.access_token);
-      localStorage.setItem("email", res.data.res.data.email);
-      localStorage.setItem("username", res.data.res.data.username);
-      localStorage.setItem("id", res.data.res.data.userId);
-      localStorage.setItem("logged", res.data.logged);
+      localStorage.setItem("access_token", res.data.user.access_token);
+      localStorage.setItem("email", res.data.user.email);
+      localStorage.setItem("username", res.data.user.username);
+      localStorage.setItem("id", res.data.user.userId);
+      localStorage.setItem("logged", res.data.user.logged);
       console.log(user);
       setSuccess(res.data.success);
       toast.success("Login ok");
