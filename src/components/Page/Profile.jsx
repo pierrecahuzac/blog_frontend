@@ -63,7 +63,7 @@ export default function Profile() {
         }
       );
       const response = await res.json();
-      console.log(response.success);
+
       toast.success("Utilisateur supprimé");
       setMessage(response.sucess);
       navigate("/");
@@ -81,7 +81,7 @@ export default function Profile() {
         id: articleId,
       });
       const response = await res.json();
-      console.log(response);
+
       setMessage(res.data.message);
 
       return;

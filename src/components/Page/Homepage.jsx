@@ -10,14 +10,8 @@ const Homepage = () => {
   useEffect(() => {
     const bearer = localStorage.getItem("token");
 
-    /* const islogged = accountService.isLogged();
-    if (islogged) {
-      userService.getAllUsers();
-    }
-    console.log(islogged);
- */
     const getItem = !!localStorage.getItem("token");
-    /*   userService.getAllUsers(); */
+
     wakeupServer();
   }, []);
 

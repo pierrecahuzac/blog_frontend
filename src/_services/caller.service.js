@@ -10,7 +10,7 @@ Axios.interceptors.request.use((req) => {
   if (accountService.isLogged()) {
     req.headers.Authorization = "Bearer" + accountService.getToken();
   }
-  console.log(req);
+
   return req;
 });
 

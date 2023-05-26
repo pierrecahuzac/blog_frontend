@@ -43,7 +43,7 @@ export default function Login() {
         email: user.email,
         password: user.password,
       });
-      console.log(res);
+
       setUser({
         username: res.data.username,
         logged: true,
@@ -54,13 +54,13 @@ export default function Login() {
       localStorage.setItem("username", res.data.username);
       localStorage.setItem("userId", res.data.userId);
       localStorage.setItem("logged", true);
-      console.log(user);
+
       setSuccess(res.data.sucess);
       toast.success("Login ok");
       navigate(`/profile/user/` + res.data.userId);
     } catch (err) {
       console.log(err);
-      /*  setError(err.response.data.error); */
+      setError(err);
       toast.error("Erreur");
       return;
     }

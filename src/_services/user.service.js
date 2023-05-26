@@ -5,7 +5,7 @@ let getAllUsers = async () => {
     Axios.post();
     /*  const response = await fetch(`${prodUrl}/api/users`);
     const data = await response.json();
-    console.log(data); */
+  */
   } catch (e) {
     console.log(e);
     throw Error(e);

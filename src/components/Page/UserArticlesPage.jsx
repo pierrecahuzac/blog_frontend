@@ -23,7 +23,7 @@ export default function UserArticlesPage() {
       });
 
       const res = await response.json();
-      console.log(res.postsUser);
+
       setPostsArray(res.postsUser);
 
       setLoading(false);
