@@ -116,8 +116,8 @@ export default function Signup() {
       setSucess(response.data.sucess);
       toast.success(`Compté crée avec succès pour ${user.username}`);
     } catch (err) {
-      setError(err.response.data.error);
-      toast.error(err.response.data.error);
+      setError(err);
+      toast.error(err);
     }
   };
   return (
