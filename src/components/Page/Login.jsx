@@ -39,14 +39,10 @@ export default function Login() {
     }
 
     try {
-      const user = await axios.post(`${prodUrl}/api/user/login`, {
+      const res = await axios.post(`${prodUrl}/api/user/login`, {
         email: user.email,
         password: user.password,
       });
-      if (res.response.status === 401) {
-        console.trace("Utilasiteur introuvable");
-        return;
-      }
 
       setUser({
         username: res.data.username,
@@ -64,7 +60,8 @@ export default function Login() {
       toast.success("Login ok");
       navigate(`/profile/user/` + res.data.userId);
     } catch (err) {
-      console.trace(err);
+      console.log(err);
+
       setError(err);
       toast.error("Erreur");
       return;
