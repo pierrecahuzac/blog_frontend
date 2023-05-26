@@ -43,28 +43,25 @@ export default function Login() {
         email: user.email,
         password: user.password,
       });
-      console.log(res);
+      /*  console.log(res); */
       setUser({
-        username: res.data.user.username,
+        username: res.data.username,
         logged: true,
-        userId: res.data.user.userId,
-        email: res.data.user.email,
+        userId: res.data.userId,
+        email: res.data.email,
       });
-      const token = accountService.getToken();
-      console.log(token);
-      localStorage.setItem("access_token", res.data.user.access_token);
-      localStorage.setItem("email", res.data.user.email);
-      localStorage.setItem("username", res.data.user.username);
-      localStorage.setItem("id", res.data.user.userId);
-      localStorage.setItem("logged", res.data.user.logged);
-      console.log(user);
-      setSuccess(res.data.success);
+      localStorage.setItem("email", res.data.email);
+      localStorage.setItem("username", res.data.username);
+      localStorage.setItem("userId", res.data.userId);
+      localStorage.setItem("logged", true);
+      /*   console.log(user); */
+      setSuccess(res.data.sucess);
       toast.success("Login ok");
-      navigate(`/profile/user/` + res.data.user.userId);
+      navigate(`/profile/user/` + res.data.userId);
     } catch (err) {
       console.log(err);
       /*  setError(err.response.data.error); */
-      toast.success("Erreur");
+      toast.error("Erreur");
       return;
     }
   };

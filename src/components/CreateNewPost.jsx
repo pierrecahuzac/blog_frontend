@@ -1,6 +1,7 @@
 import axios from "axios";
 import validUrl from "valid-url";
 import { useState, useEffect } from "react";
+import { toast } from "react-toastify";
 
 /* import RichTextEditor from "../components/RichTextEditor"; */
 
@@ -41,19 +42,19 @@ export default function CreateNewPost({
   const onSubmitNewpost = async (e) => {
     e.preventDefault();
     if (!validUrl.isUri(newPostURL)) {
-      errorToast(`URL de l'image incorrecte`);
+      toast.error(`URL de l'image incorrecte`);
       return;
     }
     if (!newPostTitle) {
-      errorToast(`Titre de l'article vide`);
+      toast.error(`Titre de l'article vide`);
       return;
     }
     if (!newPostContent) {
-      errorToast(`Contenu de l'article vide`);
+      toast.error(`Contenu de l'article vide`);
       return;
     }
     try {
-      const response = await axios.post(`${prodUrl}/api/user/createNewPost`, {
+      await axios.post(`${prodUrl}/api/user/createNewPost`, {
         newPostTitle,
         newPostContent,
         newPostURL,
@@ -64,6 +65,7 @@ export default function CreateNewPost({
       });
 
       setCreateNewPostModalIsOpen(false);
+      toast.success("Nouvel article crée");
       return;
     } catch (err) {}
   };
