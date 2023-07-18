@@ -66,9 +66,9 @@ export default function Login() {
       toast.success("Login ok");
       navigate(`/profile/user/` + res.data.userId);
     } catch (err) {
-      console.log(err);
-      setError(err);
-      toast.error("Erreur");
+      console.log(err.response.data.message);
+      setError(err.response.data.message);
+      toast.error(err.response.data.message);
       return;
     }
   };
