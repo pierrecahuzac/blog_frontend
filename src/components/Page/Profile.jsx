@@ -1,12 +1,13 @@
 import { useState, useEffect } from "react";
 import { toast } from "react-toastify";
-
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+
 import { useUserContext } from "../../utils/userContext";
 import Post from "../Post";
 import CreateNewPost from "../CreateNewPost";
 import Loading from "../Loading";
+
 import "react-toastify/dist/ReactToastify.css";
 import "../../assets/CSS/profile.scss";
 
@@ -18,7 +19,7 @@ export default function Profile() {
       toast.error("utilisateur non reconnu, redirection vers l'accueil");
       return navigate("/");
     }
-  }, [myPosts]);
+  }, []);
   const navigate = useNavigate();
   const { user, setUser } = useUserContext();
   const [loading, setLoading] = useState(false);
@@ -33,17 +34,25 @@ export default function Profile() {
   // récupérer les posts de l'user
   const getMyPosts = async () => {
     try {
-      const response = await fetch(`${prod_url}/api/blog/user/${user.userId}`);
-      const data = await response.json();
-      if (!data.postsUser.length) {
-        setLoading(false);
-        toast.error("Pas de post pour cet utilisateur");
-        return data;
+      const response = await axios(`${prod_url}/api/blog/user/${user.userId}`);
+
+      if (!response.data.postsUser.length) {
+        toast.error("Cet utilisateur n'a pas encore d'article");
       }
-      setMyPosts(data.postsUser);
+      if (response.data.postsUser.length === 1) {
+        toast.success(
+          `Cet utilisateur a ${response.data.postsUser.length} article`
+        );
+      }
+      if (response.data.postsUser.length > 1) {
+        toast.success(
+          `Cet utilisateur a ${response.data.postsUser.length} articles`
+        );
+      }
+      setMyPosts(response.data.postsUser);
       setLoading(false);
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   };
 
@@ -121,7 +130,7 @@ export default function Profile() {
       <h2> Mes posts </h2>
       <div className="my_posts">
         {myPosts.map((post) => (
-          <div className="post_container">
+          <div className="post_container" key={post.id}>
             {!loading && (
               <Post
                 key={post.id}

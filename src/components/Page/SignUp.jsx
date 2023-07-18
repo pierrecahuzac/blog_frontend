@@ -1,9 +1,9 @@
 import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import emailValidator from "email-validator";
 import passwordValidator from "password-validator";
 import { useUserContext } from "../../utils/userContext";
 import { AiFillEyeInvisible } from "react-icons/ai";
-import { Link, useNavigate } from "react-router-dom";
 import { AiFillEye } from "react-icons/ai";
 import axios from "axios";
 

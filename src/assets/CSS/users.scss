@@ -1,0 +1,24 @@
+.users {
+    width: 100%;
+    height: calc(100vh - 60px);
+    display: flex;
+    flex-direction: column;
+    & h1 {
+        width: 100%;
+        text-align: center;
+    }
+}
+
+.users-list {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 50px;
+    width: 80%;
+    margin: auto;
+}
+.user {
+    width: 80%;
+    margin-top: 15px;
+}

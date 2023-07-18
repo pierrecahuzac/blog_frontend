@@ -42,7 +42,8 @@ export default function Header() {
     localStorage.removeItem("username");
     localStorage.removeItem("id");
     localStorage.removeItem("logged");
-    setUser({ ...user, logged: false });
+    localStorage.removeItem("access_token");
+    setUser({});
     toast.success("Utilisateur déconnecté");
     navigate("/signin");
   };
@@ -64,7 +65,7 @@ export default function Header() {
                     to={`/profile/user/${user.userId}`}
                     onClick={closeMenu}
                   >
-                    {user.username.toUpperCase()}
+                    {user.username /* .toUpperCase() */}
                   </NavLink>
                 </div>
                 <div className="header_link signout" onClick={signout}>
@@ -131,7 +132,7 @@ export default function Header() {
                     to={`/profile/user/${user.userId}`}
                     onClick={closeMenu}
                   >
-                    {user.username.toUpperCase()}
+                    {user.username /* .toUpperCase() */}
                   </NavLink>
                 </li>
                 <NavLink to={`/`} onClick={closeMenu}>

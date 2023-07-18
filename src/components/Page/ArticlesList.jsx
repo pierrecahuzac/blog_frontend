@@ -20,8 +20,9 @@ export default function ArticlesList() {
 
       setArticlesList(res.posts);
       setLoading(false);
-      return response.data.posts;
+      return res;
     } catch (err) {
+      console.log(err);
       return;
     }
   };
