@@ -1,20 +1,23 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import { useUserContext } from "../../utils/userContext";
 import { toast } from "react-toastify";
-
-import { accountService } from "../../_services/account.service";
+import { AiFillEyeInvisible } from "react-icons/ai";
+import { AiFillEye } from "react-icons/ai";
 
 import "../../assets/CSS/signin.scss";
 import "react-toastify/dist/ReactToastify.css";
 
 export default function Login() {
   const { user, setUser } = useUserContext();
-  const [error, setError] = useState("");
-  const [success, setSuccess] = useState();
+  const [error, setError] = useState(null);
+  const [success, setSuccess] = useState(null);
+  const [passwordReveal, setPasswordReveal] = useState(false);
   const navigate = useNavigate();
-
+  const handlePasswordVisibility = () => {
+    setPasswordReveal(!passwordReveal);
+  };
   const changeEmail = (e) => {
     setError("");
     setUser({ ...user, email: e.target.value });
@@ -34,16 +37,17 @@ export default function Login() {
     }
     try {
       const res = await axios.post(`${prodUrl}/api/user/login`, {
-        email: user.email,
+        email: user.email.toLowerCase(),
         password: user.password,
       });
-
+      console.log(res);
       setUser({
         username: res.data.username,
         logged: true,
         userId: res.data.userId,
         email: res.data.email,
         access_token: res.data.access_token,
+        // sessionId: res.data.sessionUser.session,
       });
       // ou res.user...
       localStorage.setItem("email", res.data.email);
@@ -51,6 +55,7 @@ export default function Login() {
       localStorage.setItem("access_token", res.data.access_token);
       localStorage.setItem("userId", res.data.userId);
       localStorage.setItem("logged", true);
+      //localStorage.setItem("sessionId", res.data.sessionUser.session);
       setSuccess(res.data.sucess);
       toast.success("Login ok");
       navigate(`/profile/user/` + res.data.userId);
@@ -78,7 +83,7 @@ export default function Login() {
           </div>
           <div className="form_input_password">
             <input
-              type="password"
+              type={passwordReveal ? "text" : "password"}
               className="form_password"
               onChange={changePassword}
               value={user.password}
@@ -86,6 +91,15 @@ export default function Login() {
             />
           </div>
         </form>
+        {passwordReveal ? (
+          <div onClick={handlePasswordVisibility} className="form_reveal">
+            <AiFillEyeInvisible />
+          </div>
+        ) : (
+          <div onClick={handlePasswordVisibility} className="form_reveal">
+            <AiFillEye />
+          </div>
+        )}
       </div>
       <button type="submit" onClick={onSubmit} className="btn_submit_account">
         Connexion
@@ -94,8 +108,8 @@ export default function Login() {
         Vous n'avez pas de compte ?
       </Link>
 
-      {error && <div className="erreur">{error}</div>}
-      {success && <div className="signup_success">{success}</div>}
+      {error && <div className="erreur">{error.message}</div>}
+      {success && <div className="signup_success">{success.message}</div>}
     </div>
   );
 }

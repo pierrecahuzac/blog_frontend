@@ -2,15 +2,11 @@ import { useEffect, useState } from "react";
 import { useUserContext } from "./utils/userContext";
 import { useGlobalContext } from "./utils/globalContext";
 import { ToastContainer } from "react-toastify";
-import {
-  BrowserRouter,
-  Route,
-  Routes,
-  useParams,
-  Link,
-} from "react-router-dom";
+
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import ArticlesList from "./components/Page/ArticlesList";
 import Header from "./components/Header";
+import { Users } from "../src/components/Page/Users";
 import SignUp from "./components/Page/SignUp";
 import Login from "./components/Page/Login";
 import Error from "./components/Page/Error.jsx";
@@ -32,6 +28,7 @@ export default function App() {
         <Header />
         <Routes>
           <Route path="/" element={<Homepage />} />
+          <Route path="/users" element={<Users />} />
           <Route path="/blog" element={<ArticlesList />} />
           <Route path="/blog/:articleId" element={<ArticlePage />} />
           <Route path="/blog/user" element={<Error />} />
@@ -44,7 +41,7 @@ export default function App() {
           <Route path="/signup" element={<SignUp />} />
           <Route
             path="/profile/user/:userId"
-            element={user.logged ? <Profile /> : <Link to="/" />}
+            element={user.logged ? <Profile /> : <Login />}
           />
           <Route path="*" element={<Error />} />
         </Routes>

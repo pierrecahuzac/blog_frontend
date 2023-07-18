@@ -1,7 +1,7 @@
 import axios from "axios";
 import { accountService } from "./account.service";
 const Axios = axios.create({
-  baseURL: "http://localhost:5000",
+  baseURL: import.meta.env.VITE_PROD_URL,
 });
 
 // Intercepteur pour le token

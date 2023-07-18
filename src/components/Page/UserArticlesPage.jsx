@@ -10,11 +10,12 @@ export default function UserArticlesPage() {
   const [loading, setLoading] = useState(true);
   const [postsArray, setPostsArray] = useState([]);
   const { username } = useParams();
+  const [articleCount, setArticleCount] = useState(0);
   const { user, setUser } = useUserContext();
   useEffect(() => {
     setLoading(true);
     getAllPostsFromUser(user.id);
-  }, []);
+  }, [articleCount]);
 
   const getAllPostsFromUser = async () => {
     try {
@@ -25,7 +26,8 @@ export default function UserArticlesPage() {
       const res = await response.json();
       console.log(res.postsUser);
       setPostsArray(res.postsUser);
-
+      // Mettre à jour le nombre d'articles
+      setArticleCount(res.postsUser.length);
       setLoading(false);
     } catch (e) {
       console.error(e);

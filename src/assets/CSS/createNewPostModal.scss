@@ -19,11 +19,6 @@
     z-index: 1000;
     background-color: grey;
 }
-.rich-text-editor_container {
-    background-color: red;
-    width: 500px;
-    height: 500px;
-}
 
 .create_new_post__form-btn_submit_new_post {
     background: #4cd137;
@@ -71,4 +66,8 @@
     transition: 0.3s;
     border: solid 1px black;
     color: black;
+}
+.rich-text-editor_container,
+.quill {
+    background-color: #f1f1f1;
 }

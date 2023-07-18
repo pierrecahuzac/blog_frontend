@@ -1,38 +1,59 @@
 import { useEffect } from "react";
-
+import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import { accountService } from "../../_services/account.service";
 import { userService } from "../../_services/user.service";
-
+import { useUserContext } from "../../utils/userContext";
+import { toast } from "react-toastify";
 import "../../assets/CSS/homepage.scss";
+import "react-toastify/dist/ReactToastify.css";
 import Axios from "../../_services/caller.service";
 const Homepage = () => {
+  const { user, setUser } = useUserContext();
+
   useEffect(() => {
-    const bearer = localStorage.getItem("token");
-
-    /* const islogged = accountService.isLogged();
-    if (islogged) {
-      userService.getAllUsers();
-    }
-    console.log(islogged);
- */
-    const getItem = !!localStorage.getItem("token");
-    /*   userService.getAllUsers(); */
-    wakeupServer();
-  }, []);
-
-  const wakeupServer = async () => {
-    const prodUrl = import.meta.env.VITE_PROD_URL;
-    try {
-      const response = await fetch(`${prodUrl}`);
-
-      if (!response.ok) {
-        return;
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: localStorage.getItem("sessionId"),
+      },
+    };
+    const sessionId = async () => {
+      try {
+        const res = await axios.get("http://localhost:5000/check-auth", config);
+        if (res.data.logged) {
+          console.log("Utilisateur authentifié");
+          setUser({ logged: true });
+        } else {
+          console.log("Utilisateur non authentifié");
+        }
+      } catch (error) {
+        console.error(
+          "Erreur lors de la vérification de l'authentification",
+          error
+        );
       }
-    } catch (e) {
-      console.log(e);
-    }
-  };
+      const wakeupServer = async () => {
+        const prodUrl = import.meta.env.VITE_PROD_URL;
+        try {
+          const response = await fetch(`${prodUrl}`);
+
+          if (!response.ok) {
+            return;
+          }
+        } catch (e) {
+          console.log(e);
+        }
+      };
+      sessionId();
+      wakeupServer();
+      if (user.logged === true) {
+        toast.success("Vous êtes connecté(e) en tant que " + user.username);
+      } else {
+        toast.error("Vous n'êtes pas connecté(e)");
+      }
+    };
+  }, []);
 
   return (
     <div className="homepage">

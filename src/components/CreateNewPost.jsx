@@ -1,10 +1,10 @@
 import axios from "axios";
 import validUrl from "valid-url";
+
 import { useState, useEffect } from "react";
-
-/* import RichTextEditor from "../components/RichTextEditor"; */
-
+import { toast } from "react-toastify";
 import { useUserContext } from "../utils/userContext";
+//import ReactQuill, { Quill } from "react-quill";
 
 import AOS from "aos";
 import "../assets/CSS/createNewPostModal.scss";
@@ -12,6 +12,7 @@ import "../assets/CSS/reactquill.scss";
 import "react-quill/dist/quill.snow.css";
 import "aos/dist/aos.css";
 import "react-toastify/dist/ReactToastify.css";
+
 export default function CreateNewPost({
   createNewPostModalIsOpen,
   setCreateNewPostModalIsOpen,
@@ -22,15 +23,17 @@ export default function CreateNewPost({
   const { user, setUser } = useUserContext();
   const prodUrl = import.meta.env.VITE_PROD_URL;
   const [newPostTitle, setNewPostTitle] = useState("");
-  const [newPostContent, setNewPostContent] = useState("");
+  const [newPostContent, setNewPostContent] = useState();
   const [newPostURL, setNewPostURL] = useState("");
 
   const onInputTitleChange = (e) => {
     e.preventDefault();
     setNewPostTitle(e.target.value);
   };
+
   const onInputContentChange = (e) => {
     e.preventDefault();
+
     setNewPostContent(e.target.value);
   };
   const onInputImgURLChange = (e) => {
@@ -41,15 +44,15 @@ export default function CreateNewPost({
   const onSubmitNewpost = async (e) => {
     e.preventDefault();
     if (!validUrl.isUri(newPostURL)) {
-      errorToast(`URL de l'image incorrecte`);
+      toast.error(`URL de l'image incorrecte`);
       return;
     }
     if (!newPostTitle) {
-      errorToast(`Titre de l'article vide`);
+      toast.error(`Titre de l'article vide`);
       return;
     }
     if (!newPostContent) {
-      errorToast(`Contenu de l'article vide`);
+      toast.error(`Contenu de l'article vide`);
       return;
     }
     try {
@@ -62,8 +65,10 @@ export default function CreateNewPost({
         createdBy: user.username,
         username: user.username,
       });
-
+      console.log(response.data);
+      setArticleCount(articleCount + 1);
       setCreateNewPostModalIsOpen(false);
+      toast.success(`Article créé avec succès`);
       return;
     } catch (err) {}
   };
@@ -77,19 +82,6 @@ export default function CreateNewPost({
           : "create_new_post__container"
       }
     >
-      {/*    <ToastContainer
-        position="top-center"
-        autoClose={5000}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-        theme="light"
-      /> */}
-
       <form action="submit" className="create_new_post__form">
         <input
           type="text"
@@ -98,8 +90,8 @@ export default function CreateNewPost({
           value={newPostTitle}
           onChange={onInputTitleChange}
         />
-        {/*   <RichTextEditor
-          className="rich-text-editor_container"
+        {/*   <ReactQuill
+           className="rich-text-editor_container" 
           value={newPostContent}
           onChange={onInputContentChange}
         /> */}
@@ -110,6 +102,7 @@ export default function CreateNewPost({
           value={newPostContent}
           onChange={onInputContentChange}
         />
+
         <input
           type="text"
           placeholder="URL de l'image de l'article"
@@ -136,17 +129,4 @@ export default function CreateNewPost({
       </span>
     </div>
   );
-} /* 
-import ReactQuill from "react-quill";
-export function RichTextEditor({}) {
-  const [value, setValue] = useState("");
-
-  return (
-    <ReactQuill
-      theme="snow"
-      value={value}
-      onChange={setValue}
-      className="reactquill_container"
-    />
-  );
-} */
+}
