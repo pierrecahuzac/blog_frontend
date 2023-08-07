@@ -16,7 +16,7 @@ export default function Signup() {
   const [userCreated, setUserCreated] = useState({});
   const [error, setError] = useState();
   /* const [displayName, setDisplayName] = useSate(""); */
-  const [sucess, setSucess] = useState();
+  const [success, setSuccess] = useState();
 
   const navigate = useNavigate();
   const handlePasswordVisibility = () => {
@@ -100,7 +100,6 @@ export default function Signup() {
     if (errorsArray.length) {
       errorsArray.forEach((err) => console.log(err));
       setError(errorsArray);
-
       return;
     }
     try {
@@ -110,14 +109,15 @@ export default function Signup() {
         password_validation: user.password_validation,
         username: user.username,
       });
-
+      console.log(response.data);
       setUserCreated(response.data);
       navigate(`/profile/user/${response.data.user.id}`);
-      setSucess(response.data.sucess);
+      setSuccess(response.data.success);
       toast.success(`Compté crée avec succès pour ${user.username}`);
     } catch (err) {
-      setError(err);
-      toast.error(err);
+      setError(err.response.data.error);
+      console.log(err.response.data.error);
+      toast.error(err.response.data.error);
     }
   };
   return (
@@ -183,8 +183,8 @@ export default function Signup() {
         Vous avez un compte ?
       </Link>
       <div className="signup_message">{userCreated.message}</div>
-      {error && <div className="signup_erreur">{error}</div>}
-      {sucess && <div className="signup_sucess">{sucess}</div>}
+      {error && <div className="signup_erreur">{error.message}</div>}
+      {success && <div className="signup_success">{success.message}</div>}
     </div>
   );
 }
